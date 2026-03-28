@@ -1,3 +1,6 @@
+<img width="1536" height="1024" alt="ChatGPT Image Mar 29, 2026, 01_18_38 AM" src="https://github.com/user-attachments/assets/19d8eaf5-8345-4325-8c2f-55e6e65601ff" />
+
+
 roal@roals-MacBook-Pro acp-atp-demo % python3 main.py
 
 --- Propagation Test: safe_calc ---
