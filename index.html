@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACP-ATP 信用探针浏览器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        body { background-color: #0a0a0c; color: #e2e8f0; font-family: 'Inter', sans-serif; }
+        .glass-panel { background: rgba(30, 30, 35, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .meltdown-alert { animation: pulse-red 2s infinite; }
+        @keyframes pulse-red { 
+            0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+        }
+    </style>
+</head>
+<body class="p-6">
+    <header class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-2xl font-bold text-blue-400">ACP-ATP <span class="text-white">Explorer</span></h1>
+            <p class="text-xs text-gray-500">去中心化 AI 信用免疫系统监控</p>
+        </div>
+        <div class="flex gap-4">
+            <div class="glass-panel p-3 rounded-lg text-center">
+                <div class="text-xs text-gray-400">活动 Agent</div>
+                <div class="text-xl font-mono">1,204</div>
+            </div>
+            <div class="glass-panel p-3 rounded-lg border-red-900/50">
+                <div class="text-xs text-red-400">24H 熔断</div>
+                <div class="text-xl font-mono text-red-500">12</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="grid grid-cols-12 gap-6">
+        <div class="col-span-3 glass-panel rounded-xl p-4 overflow-hidden h-[700px] flex flex-col">
+            <h2 class="text-sm font-semibold mb-4 border-b border-gray-700 pb-2">实时行为审计流</h2>
+            <div id="log-stream" class="text-xs space-y-3 overflow-y-auto">
+                <div class="text-gray-500">[12:01:02] Agent_88 执行 Pinterest POST...</div>
+                <div class="text-green-400">[12:01:05] ACP_SDK: 权限校验通过 (T=0.88)</div>
+                <div class="text-gray-500">[12:01:10] Agent_92 请求 跨境结算接口...</div>
+                <div class="text-yellow-400">[12:01:12] 预警: 访问频率接近阈值</div>
+            </div>
+        </div>
+
+        <div class="col-span-6 space-y-6">
+            <div class="glass-panel rounded-xl p-6 h-[450px]" id="main-chart">
+                </div>
+            
+            <div class="glass-panel rounded-xl p-6 flex justify-between items-center">
+                <div>
+                    <h3 class="text-sm text-gray-400">当前监控目标: <span class="text-white font-mono">pin_bot_v1_malicious_test</span></h3>
+                    <p class="text-2xl font-bold mt-1 text-red-500">状态: CIRCUIT BROKEN (熔断)</p>
+                </div>
+                <button onclick="simulateMeltdown()" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded font-bold text-sm transition">模拟攻击响应</button>
+            </div>
+        </div>
+
+        <div class="col-span-3 glass-panel rounded-xl p-4 h-[700px]">
+            <h2 class="text-sm font-semibold mb-4 border-b border-gray-700 pb-2">IPFS 证据保险库 (Evidence)</h2>
+            <div class="space-y-4">
+                <div class="p-3 bg-red-900/20 border border-red-900/50 rounded-lg">
+                    <div class="text-[10px] text-red-400 uppercase font-bold">熔断快照 (CID)</div>
+                    <div class="text-xs font-mono break-all text-gray-300 mt-1 cursor-pointer hover:text-white">QmXoyp...392hzL1</div>
+                    <div class="text-[10px] mt-2 text-gray-500 italic">原因: 非法系统文件访问尝试</div>
+                </div>
+                <div class="p-3 bg-gray-800/40 border border-gray-700 rounded-lg">
+                    <div class="text-[10px] text-gray-400 uppercase">历史存证 (CID)</div>
+                    <div class="text-xs font-mono break-all text-gray-500 mt-1">QmZ74...k9201fN</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 初始化 ECharts
+        const chart = echarts.init(document.getElementById('main-chart'), 'dark');
+        let data = [0.8, 0.82, 0.79, 0.85, 0.83, 0.88, 0.86, 0.87];
+        let times = ["12:00", "12:01", "12:02", "12:03", "12:04", "12:05", "12:06", "12:07"];
+
+        const option = {
+            backgroundColor: 'transparent',
+            title: { text: '实时复合信任分 (T) 趋势', textStyle: { fontSize: 14, color: '#94a3b8' } },
+            tooltip: { trigger: 'axis' },
+            xAxis: { type: 'category', data: times, boundaryGap: false },
+            yAxis: { type: 'value', min: 0, max: 1 },
+            series: [{
+                name: 'Trust Score',
+                data: data,
+                type: 'line',
+                smooth: true,
+                areaStyle: { color: 'rgba(59, 130, 246, 0.1)' },
+                lineStyle: { width: 3, color: '#3b82f6' },
+                itemStyle: { color: '#3b82f6' }
+            }]
+        };
+        chart.setOption(option);
+
+        // 模拟熔断动画逻辑
+        function simulateMeltdown() {
+            // 模拟数据垂直落地
+            const newData = [...data, 0.12];
+            const newTimes = [...times, "12:08"];
+            
+            chart.setOption({
+                xAxis: { data: newTimes },
+                series: [{
+                    data: newData,
+                    lineStyle: { color: '#ef4444' },
+                    itemStyle: { color: '#ef4444' },
+                    areaStyle: { color: 'rgba(239, 68, 68, 0.2)' }
+                }]
+            });
+            document.querySelector('#main-chart').classList.add('meltdown-alert');
+            
+            // 插入一条红色的日志
+            const logStream = document.getElementById('log-stream');
+            const newLog = document.createElement('div');
+            newLog.className = 'text-red-500 font-bold';
+            newLog.innerText = '[12:08:15] CRITICAL: Violation detected. CID Recorded.';
+            logStream.prepend(newLog);
+        }
+    </script>
+</body>
+</html>
