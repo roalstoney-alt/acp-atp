@@ -3,221 +3,269 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ACP-ATP Explorer</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<title>ACP—ATP trust protocol for autonomous AI ecosystems</title>
 
 <style>
 body {
-    background-color: #0a0a0c;
-    color: #e2e8f0;
-    font-family: Inter, sans-serif;
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#020617;
+  color:white;
 }
-.glass {
-    background: rgba(30,30,35,0.6);
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
+
+section {
+  padding:80px 20px;
+  text-align:center;
+}
+
+.container {
+  max-width:1000px;
+  margin:auto;
+}
+
+h1 { font-size:56px; }
+h2 { font-size:32px; margin-bottom:20px; }
+p  { color:#94a3b8; line-height:1.6; }
+
+.hero {
+  position:relative;
+  height:90vh;
+  overflow:hidden;
+}
+
+.hero video {
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:black;
+}
+
+.overlay {
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+}
+
+.hero-content {
+  position:relative;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:2;
+}
+
+.btn {
+  padding:12px 24px;
+  margin:10px;
+  border-radius:6px;
+  text-decoration:none;
+  font-size:16px;
+  display:inline-block;
+}
+
+.btn-primary {
+  background:#22c55e;
+  color:white;
+}
+
+.btn-secondary {
+  border:1px solid #475569;
+  color:white;
+}
+
+.cards {
+  display:flex;
+  flex-wrap:wrap;
+  gap:20px;
+  justify-content:center;
+  margin-top:40px;
+}
+
+.card {
+  background:#0f172a;
+  padding:20px;
+  border-radius:10px;
+  width:280px;
+  border:1px solid #1e293b;
+}
+
+pre {
+  text-align:left;
+  background:#020617;
+  padding:20px;
+  border-radius:10px;
+  overflow:auto;
+  color:#22c55e;
 }
 </style>
 </head>
 
-<body class="p-6">
+<body>
 
-<!-- HEADER -->
-<header class="flex justify-between items-center mb-6">
-    <div>
-        <h1 class="text-2xl font-bold text-blue-400">ACP-ATP <span class="text-white">Explorer</span></h1>
-        <p class="text-xs text-gray-500">AI Agent Immune System Demo</p>
-        <p class="text-xs text-gray-400 mt-1">
-            This is not monitoring — this is execution and propagation control.
-        </p>
+<!-- HERO -->
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="demo.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
+
+  <div class="hero-content">
+    <h1>AI doesn't fail alone.</h1>
+    <h2>It fails in chains. ACP-ATP stops the chain.</h2>
+
+    <a href="#integration" class="btn btn-primary">Integrate Now</a>
+    <a href="#demo" class="btn btn-secondary">See How It Works</a>
+  </div>
+</section>
+
+<!-- WHAT -->
+<section>
+  <div class="container">
+    <h2>A trust layer for AI agent networks</h2>
+    <p>
+      ACP-ATP introduces a propagation-aware trust system for AI agents.
+      Instead of evaluating agents in isolation, ACP-ATP models how outputs flow across systems,
+      allowing failures, risks, and trust to be tracked and contained in real time.
+    </p>
+
+    <p><strong>AI doesn't fail alone. It fails in chains.</strong></p>
+  </div>
+</section>
+
+<!-- HOW -->
+<section style="background:#020617;">
+  <div class="container">
+    <h2>How ACP-ATP works</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Execution</h3>
+        <p>Every agent execution is recorded as a node.</p>
+      </div>
+
+      <div class="card">
+        <h3>Propagation</h3>
+        <p>Dependencies form chains across agents.</p>
+      </div>
+
+      <div class="card">
+        <h3>Credit</h3>
+        <p>Trust and risk propagate across the network.</p>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="flex gap-4">
-        <div class="glass p-3 rounded text-center">
-            <div class="text-xs text-gray-400">Active Agents</div>
-            <div class="text-xl font-mono">1,204</div>
-        </div>
+<!-- PROGRESS -->
+<section>
+  <div class="container">
+    <h2>Current progress</h2>
 
-        <div class="glass p-3 rounded border-red-900/50">
-            <div class="text-xs text-red-400">24H Circuit Breaks</div>
-            <div class="text-xl text-red-500 font-mono">12</div>
-        </div>
+    <p>
+      • Execution tracking (CLI + API)<br>
+      • Propagation graph modeling<br>
+      • Credit scoring with propagation<br>
+      • Real-time visualization<br>
+      • Containment demo (virus isolation)
+    </p>
+
+    <p><strong>A working prototype demonstrating real-time containment.</strong></p>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section id="demo" style="background:#020617;">
+  <div class="container">
+    <h2>See how failures spread — and how ACP stops them</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>1. Infection</h3>
+        <p>A malicious agent appears</p>
+      </div>
+
+      <div class="card">
+        <h3>2. Propagation</h3>
+        <p>The failure spreads across agents</p>
+      </div>
+
+      <div class="card">
+        <h3>3. Containment</h3>
+        <p>ACP isolates the threat in real time</p>
+      </div>
     </div>
-</header>
+  </div>
+</section>
 
-<!-- PROBLEM -->
-<div class="mb-6 p-4 rounded border border-yellow-500/30 bg-yellow-500/10">
-    <div class="text-sm text-yellow-300 font-semibold">
-        ⚠ AI agents can share capabilities, but nothing prevents malicious skills from spreading.
-    </div>
-    <div class="text-xs text-gray-400 mt-2">
-        This demo shows how ACP-ATP blocks propagation using trust scoring and circuit breakers.
-    </div>
-</div>
+<!-- INTEGRATION -->
+<section id="integration">
+  <div class="container">
+    <h2>Integrate with ACP</h2>
 
-<!-- COMPARISON -->
-<div class="glass p-4 rounded mb-6">
-    <div class="text-sm font-semibold mb-3 text-gray-300">Propagation Comparison</div>
+    <p>ACP does not replace agents. It connects them.</p>
 
-    <div class="grid grid-cols-2 gap-4 text-xs">
+    <h3 style="margin-top:40px;">CLI</h3>
+    <pre>
+acp run \
+  --agent your-agent \
+  --task text_generation \
+  --cmd "your command"
+    </pre>
 
-        <div class="p-3 bg-gray-800/40 rounded">
-            <div class="text-red-400 font-bold mb-2">❌ Without ACP-ATP</div>
-            <ul class="text-gray-400 space-y-1">
-                <li>• Malicious skill executes</li>
-                <li>• Reused by other agents</li>
-                <li>• Rapid propagation</li>
-            </ul>
-        </div>
+    <h3 style="margin-top:40px;">API</h3>
+    <pre>
+POST /v1/execute
 
-        <div class="p-3 bg-gray-800/40 rounded">
-            <div class="text-green-400 font-bold mb-2">✅ With ACP-ATP</div>
-            <ul class="text-gray-400 space-y-1">
-                <li>• Trust score drops</li>
-                <li>• Circuit breaker triggered</li>
-                <li>• Propagation blocked</li>
-            </ul>
-        </div>
-
-    </div>
-</div>
-
-<!-- MAIN -->
-<main class="grid grid-cols-12 gap-6">
-
-<!-- LOG -->
-<div class="col-span-3 glass rounded p-4 h-[650px] flex flex-col">
-    <h2 class="text-sm font-semibold mb-4 border-b border-gray-700 pb-2">Audit Log</h2>
-
-    <div id="log" class="text-xs space-y-2 overflow-y-auto">
-        <div class="text-gray-500">[12:01:02] Agent_88 executing task...</div>
-        <div class="text-green-400">[12:01:05] Trust validated (T=0.88)</div>
-        <div class="text-gray-500">[12:01:10] Agent_92 requesting API...</div>
-    </div>
-</div>
-
-<!-- CENTER -->
-<div class="col-span-6 space-y-6">
-
-    <div class="glass rounded p-6 h-[400px]" id="chart"></div>
-
-    <div class="glass p-6 rounded flex justify-between items-center">
-        <div>
-            <div class="text-sm text-gray-400">Target Agent</div>
-            <div class="text-lg font-mono text-white">malicious_agent_test</div>
-
-            <div class="text-xl font-bold mt-2 text-red-500">
-                Status: CIRCUIT BREAK
-            </div>
-
-            <div class="mt-2 text-xs">
-                Propagation Status:
-                <span class="text-red-400 font-bold text-lg animate-pulse">
-                    🚫 BLOCKED
-                </span>
-            </div>
-        </div>
-
-        <div class="flex flex-col gap-2">
-            <button onclick="simulateUnsafe()" class="bg-gray-700 px-3 py-2 rounded text-xs">
-                Without Protection
-            </button>
-
-            <button onclick="simulateProtected()" class="bg-red-600 px-4 py-2 rounded text-sm font-bold">
-                With ACP-ATP
-            </button>
-        </div>
-    </div>
-
-</div>
-
-<!-- EVIDENCE -->
-<div class="col-span-3 glass rounded p-4 h-[650px]">
-    <h2 class="text-sm font-semibold mb-4 border-b border-gray-700 pb-2">Evidence (IPFS)</h2>
-
-    <div class="space-y-3">
-        <div class="p-3 bg-red-900/20 border border-red-900/50 rounded">
-            <div class="text-[10px] text-red-400 font-bold">Circuit Break Snapshot</div>
-            <div class="text-xs font-mono mt-1">QmXoyp...392hzL1</div>
-            <div class="text-[10px] mt-2 text-gray-500">Unauthorized file access</div>
-        </div>
-    </div>
-</div>
-
-</main>
-
-<!-- CONCLUSION -->
-<div class="mt-6 text-center text-sm text-gray-400">
-    Without control, AI capabilities spread.<br>
-    With ACP-ATP, propagation is contained.
-</div>
-
-<script>
-
-const chart = echarts.init(document.getElementById('chart'));
-
-let baseData = [0.8,0.82,0.79,0.85,0.83,0.88,0.86];
-let baseTime = ["12:00","12:01","12:02","12:03","12:04","12:05","12:06"];
-
-chart.setOption({
-    xAxis: { type:'category', data: baseTime },
-    yAxis: { type:'value', min:0, max:1 },
-    series: [{
-        data: baseData,
-        type:'line',
-        smooth:true,
-        lineStyle:{ color:'#3b82f6' }
-    }]
-});
-
-// WITH ACP (BLOCKED)
-function simulateProtected() {
-    chart.setOption({
-        series:[{
-            data:[...baseData,0.1],
-            lineStyle:{ color:'#ef4444' }
-        }]
-    });
-
-    log("CRITICAL: Violation detected → Circuit Break triggered", "red");
-    log("Propagation blocked across agents", "red");
+{
+  "agent_name": "your-agent",
+  "task_type": "text_generation",
+  "input": {},
+  "output": {},
+  "success": true,
+  "accepted": true,
+  "parent_id": null
 }
+    </pre>
 
-// WITHOUT ACP (SPREAD)
-function simulateUnsafe() {
-    chart.setOption({
-        series:[{
-            data:[...baseData,0.85],
-            lineStyle:{ color:'#22c55e' }
-        }]
-    });
+  </div>
+</section>
 
-    log("⚠ Malicious capability reused", "yellow");
+<!-- SCENARIOS -->
+<section style="background:#020617;">
+  <div class="container">
+    <h2>Three failure modes ACP prevents</h2>
 
-    // 🔥 模拟传播扩散
-    for (let i = 0; i < 3; i++) {
-        setTimeout(() => {
-            log(`Agent_${100+i} infected via reuse`, "yellow");
-        }, i * 500);
-    }
-}
+    <div class="cards">
+      <div class="card">
+        <h3>🔴 Prompt Injection</h3>
+        <p>Malicious outputs spread across systems</p>
+      </div>
 
-function log(text, color="gray") {
-    const el = document.createElement("div");
+      <div class="card">
+        <h3>🟡 Model Drift</h3>
+        <p>Degraded models silently corrupt chains</p>
+      </div>
 
-    el.className =
-        color === "red" ? "text-red-500 font-bold" :
-        color === "yellow" ? "text-yellow-400" :
-        "text-gray-400";
+      <div class="card">
+        <h3>🔵 Central Failure</h3>
+        <p>A single failure breaks the network</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    el.innerText = "[12:08:15] " + text;
+<!-- CTA -->
+<section>
+  <div class="container">
+    <h2>Build safer AI systems</h2>
 
-    document.getElementById("log").prepend(el);
-}
+    <p>ACP-ATP defines the trust layer for autonomous AI systems.</p>
 
-</script>
+    <a href="https://github.com/roalstoney-alt/acp-atp" class="btn btn-primary">View on GitHub</a>
+    <a href="mailto:Roalstoney@gmail.com" class="btn btn-secondary">Contact</a>
+  </div>
+</section>
 
 </body>
 </html>

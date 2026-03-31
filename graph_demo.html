@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ACP Virus Simulation</title>
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <style>
+    body { font-family: Arial; }
+    #network { width: 100%; height: 90vh; }
+  </style>
+</head>
+<body>
+
+<h2>🧬 ACP Anti-Propagation Demo</h2>
+<div id="network"></div>
+
+<script>
+const container = document.getElementById("network");
+
+// 🔥 生成节点
+const nodes = new vis.DataSet();
+const edges = new vis.DataSet();
+
+const NODE_COUNT = 60;
+
+for (let i = 0; i < NODE_COUNT; i++) {
+  nodes.add({
+    id: i,
+    label: "Agent",
+    color: "#2ecc71"
+  });
+
+  if (i > 0) {
+    edges.add({ from: i - 1, to: i });
+  }
+}
+
+// 🔥 插入 ACP 节点
+const ACP_NODE = 30;
+nodes.update({
+  id: ACP_NODE,
+  label: "ACP-ATP",
+  color: "#3498db"
+});
+
+// 网络
+const network = new vis.Network(container, {
+  nodes,
+  edges
+}, {
+  physics: true
+});
+
+// 🔥 病毒传播逻辑
+let infected = new Set([0]);
+
+nodes.update({ id: 0, color: "#e74c3c" });
+
+function spread() {
+  let newInfected = [];
+
+  infected.forEach(id => {
+    edges.get().forEach(edge => {
+      if (edge.from === id) {
+
+        // 遇到 ACP
+        if (edge.to === ACP_NODE) {
+          nodes.update({
+            id: edge.to,
+            color: "#95a5a6", // 灰色隔离
+            label: "QUARANTINED"
+          });
+
+          return;
+        }
+
+        if (!infected.has(edge.to)) {
+          newInfected.push(edge.to);
+        }
+      }
+    });
+  });
+
+  newInfected.forEach(id => {
+    infected.add(id);
+    nodes.update({
+      id: id,
+      color: "#e74c3c"
+    });
+  });
+
+  // 🔥 停止条件
+  if (infected.size < NODE_COUNT / 2) {
+    setTimeout(spread, 800);
+  } else {
+    restore();
+  }
+}
+
+// 🔥 恢复正常
+function restore() {
+  nodes.forEach(node => {
+    if (node.color !== "#95a5a6") {
+      nodes.update({
+        id: node.id,
+        color: "#2ecc71"
+      });
+    }
+  });
+}
+
+// 🚀 启动
+setTimeout(spread, 2000);
+
+</script>
+
+</body>
+</html>
