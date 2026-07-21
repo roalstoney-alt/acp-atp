@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://patl.example/schemas/paac-v0.1.schema.json",
+  "title": "Personal Agent Authorization Contract v0.1",
+  "type": "object",
+  "required": ["paac_version", "contract_id", "principal", "agent_stack", "purpose", "permitted_actions", "prohibited_actions", "resources", "constraints", "validity", "confirmation_required_actions"],
+  "properties": {
+    "paac_version": {"const": "0.1"},
+    "contract_id": {"type": "string", "minLength": 1},
+    "principal": {
+      "type": "object",
+      "required": ["type", "pseudonymous_id"],
+      "properties": {
+        "type": {"enum": ["individual"]},
+        "pseudonymous_id": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "agent_stack": {
+      "type": "object",
+      "required": ["agent_id", "agent_version", "model_id"],
+      "properties": {
+        "agent_id": {"type": "string"},
+        "agent_version": {"type": "string"},
+        "model_id": {"type": "string"},
+        "tool_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "purpose": {"type": "string"},
+    "permitted_actions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "prohibited_actions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "resources": {"type": "object"},
+    "constraints": {"type": "object"},
+    "validity": {
+      "type": "object",
+      "required": ["valid_from", "valid_until"],
+      "properties": {
+        "valid_from": {"type": "string", "format": "date-time"},
+        "valid_until": {"type": "string", "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "confirmation_required_actions": {"type": "array", "items": {"type": "string"}},
+    "revocation": {
+      "type": "object",
+      "properties": {"revoked": {"type": "boolean"}, "revoked_at": {"type": ["string", "null"], "format": "date-time"}}
+    }
+  },
+  "additionalProperties": false
+}

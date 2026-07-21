@@ -135,6 +135,103 @@ pre {
   overflow: auto;
   color: #22c55e;
 }
+
+/* ===== PERSONAL AGENT TRUST LAYER DEMO ===== */
+.trust-shell {
+  margin-top: 38px;
+  display: grid;
+  grid-template-columns: minmax(220px, 0.9fr) minmax(280px, 1.4fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.scenario-list {
+  display: grid;
+  gap: 10px;
+}
+
+.scenario-button {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid #1e293b;
+  background: #0f172a;
+  color: #e2e8f0;
+  text-align: left;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.scenario-button.active {
+  border-color: #38bdf8;
+  background: #10243a;
+}
+
+.decision-panel {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  padding: 22px;
+  text-align: left;
+}
+
+.decision-badge {
+  display: inline-block;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-weight: 700;
+  color: #020617;
+  background: #22c55e;
+}
+
+.decision-badge.confirm { background: #facc15; }
+.decision-badge.block { background: #f87171; }
+.decision-badge.log { background: #38bdf8; }
+
+.decision-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.decision-cell {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.decision-cell span {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.decision-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.decision-step {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+@media (max-width: 760px) {
+  .hero h1 { font-size: 38px; }
+  .trust-shell { grid-template-columns: 1fr; }
+  .decision-grid { grid-template-columns: 1fr; }
+  .decision-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 </style>
 </head>
 
@@ -155,6 +252,7 @@ pre {
 
     <a href="#integration" class="btn btn-primary">Integrate Now</a>
     <a href="#demo" class="btn btn-secondary">See How It Works</a>
+    <a href="#personal-trust" class="btn btn-secondary">Personal Agent Trust Layer</a>
   </div>
 
 </section>
@@ -233,6 +331,60 @@ pre {
   </div>
 </section>
 
+<!-- PERSONAL AGENT TRUST LAYER -->
+<section id="personal-trust">
+  <div class="container">
+    <h2>Personal Agent Trust Layer</h2>
+    <p>
+      ACP-ATP now includes a local authorization layer for personal AI agents.
+      PAAC contracts keep authority bounded while the gateway returns deterministic decisions:
+      allow, log, require confirmation, or block.
+    </p>
+
+    <div class="decision-strip">
+      <div class="decision-step">ALLOW<br><span style="color:#64748b;">low-risk search</span></div>
+      <div class="decision-step">ALLOW_WITH_LOG<br><span style="color:#64748b;">draft or file rename</span></div>
+      <div class="decision-step">REQUIRE_CONFIRMATION<br><span style="color:#64748b;">email send</span></div>
+      <div class="decision-step">BLOCK<br><span style="color:#64748b;">delete, upload, over-limit payment</span></div>
+    </div>
+
+    <div class="trust-shell">
+      <div class="scenario-list">
+        <button class="scenario-button active" onclick="runTrustDemo('email', this)">Email send</button>
+        <button class="scenario-button" onclick="runTrustDemo('travel', this)">Travel purchase</button>
+        <button class="scenario-button" onclick="runTrustDemo('files', this)">File management</button>
+      </div>
+
+      <div class="decision-panel">
+        <div id="trustDecision" class="decision-badge confirm">REQUIRE_CONFIRMATION</div>
+        <h3 id="trustTitle">Draft allowed. Send requires user confirmation.</h3>
+        <p id="trustSummary">
+          The agent may draft to an approved recipient, but sending the email is a critical action and cannot depend solely on model judgment.
+        </p>
+
+        <div class="decision-grid">
+          <div class="decision-cell">
+            <span>PAAC Scope</span>
+            <div id="trustScope">recipients: example.com; actions: draft, send</div>
+          </div>
+          <div class="decision-cell">
+            <span>Evidence</span>
+            <div id="trustEvidence">ev_email_send_confirmation_required</div>
+          </div>
+          <div class="decision-cell">
+            <span>Blocked Boundary</span>
+            <div id="trustBoundary">unapproved recipients and silent send</div>
+          </div>
+          <div class="decision-cell">
+            <span>Alpha Status</span>
+            <div>mock service, no real account access</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- INTEGRATION -->
 <section id="integration">
   <div class="container">
@@ -298,6 +450,52 @@ POST /v1/execute
     <a href="https://github.com/roalstoney-alt/acp-atp" class="btn btn-primary">GitHub</a>
   </div>
 </section>
+
+<script>
+const trustScenarios = {
+  email: {
+    badge: "REQUIRE_CONFIRMATION",
+    className: "decision-badge confirm",
+    title: "Draft allowed. Send requires user confirmation.",
+    summary: "The agent may draft to an approved recipient, but sending the email is a critical action and cannot depend solely on model judgment.",
+    scope: "recipients: example.com; actions: draft, send",
+    evidence: "ev_email_send_confirmation_required",
+    boundary: "unapproved recipients and silent send"
+  },
+  travel: {
+    badge: "BLOCK",
+    className: "decision-badge block",
+    title: "Payment above limit is blocked.",
+    summary: "The travel agent may search and reserve, but a purchase above the PAAC limit is deterministically blocked.",
+    scope: "currency: USD; max payment: 500; actions: search, reserve, purchase",
+    evidence: "ev_travel_payment_limit_exceeded",
+    boundary: "payment above limit, wrong currency, saved payment credential"
+  },
+  files: {
+    badge: "BLOCK",
+    className: "decision-badge block",
+    title: "Deletion and upload are blocked.",
+    summary: "The file agent may list, rename, and move inside the scoped demo folder. Delete and upload are denied in the contract.",
+    scope: "path: /workspace/demo; actions: list, move, rename",
+    evidence: "ev_file_delete_prohibited",
+    boundary: "delete, upload, path escape"
+  }
+};
+
+function runTrustDemo(key, button) {
+  const scenario = trustScenarios[key];
+  document.querySelectorAll(".scenario-button").forEach((item) => item.classList.remove("active"));
+  button.classList.add("active");
+  const badge = document.getElementById("trustDecision");
+  badge.className = scenario.className;
+  badge.textContent = scenario.badge;
+  document.getElementById("trustTitle").textContent = scenario.title;
+  document.getElementById("trustSummary").textContent = scenario.summary;
+  document.getElementById("trustScope").textContent = scenario.scope;
+  document.getElementById("trustEvidence").textContent = scenario.evidence;
+  document.getElementById("trustBoundary").textContent = scenario.boundary;
+}
+</script>
 
 </body>
 </html>

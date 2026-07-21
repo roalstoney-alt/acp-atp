@@ -1,5 +1,5 @@
 # acp-atp
-An immune system for AI agent networks — trust scoring, sandbox execution, and propagation control.
+An immune system for AI agent networks — trust scoring, sandbox execution, propagation control, and personal-agent authorization.
 <img width="1024" height="1536" alt="ChatGPT Image Mar 28, 2026, 11_15_54 PM" src="https://github.com/user-attachments/assets/eceaf76d-85ff-4193-abc6-7190d8d0b171" />
 
 # ACP-ATP  
@@ -49,7 +49,24 @@ It ensures:
 - 🔒 Execution is isolated  
 - 📉 Risk propagation is constrained  
 - ⚖️ Trust is continuously computed
+- 🧾 Personal agent actions are authorized by bounded PAAC contracts
+- 🛑 Critical personal actions return deterministic allow / log / confirm / block decisions
 
+---
+
+## Personal Agent Trust Layer
+
+ACP-ATP now includes a local v0.1 alpha trust layer for personal AI agents.
+
+It adds:
+
+- **PAAC v0.1** — Personal Agent Authorization Contract.
+- **Deterministic ATP gateway decisions** — `ALLOW`, `ALLOW_WITH_LOG`, `REQUIRE_CONFIRMATION`, `BLOCK`.
+- **Evidence events** — minimal audit records without raw private content by default.
+- **Agent credit events** — behavior summaries derived from evidence, never permission overrides.
+- **Mock personal-agent demos** — email drafting/sending, travel search/payment limits, and scoped file management.
+
+This layer is intentionally synthetic and local. It does not connect to real email, payment, travel or personal file accounts.
 
 ---
 
@@ -138,6 +155,21 @@ Run:
 
 ```bash
 python main.py
+python -m unittest discover -s tests
+python -m trust_layer.demo_runner
+```
+
+Personal Agent Trust Layer demo output:
+
+```text
+ALLOW_WITH_LOG within_scope_logged
+REQUIRE_CONFIRMATION confirmation_required
+ALLOW within_scope
+BLOCK payment_amount_exceeds_contract_limit
+ALLOW_WITH_LOG within_scope_logged
+BLOCK action_explicitly_prohibited
+BLOCK action_explicitly_prohibited
+```
 
 Example output:
 --- NO PROTECTION: malicious ---
@@ -159,6 +191,9 @@ acp-atp/
  ├── sandbox.py      # Execution isolation
  ├── registry.py     # Skill definitions
  ├── main.py         # Demo entry point
+ ├── trust_layer/    # Personal Agent Trust Layer reference implementation
+ ├── schemas/        # PAAC, evidence event, and Agent credit schemas
+ ├── tests/          # Unit, integration, and adversarial tests
  └── whitepaper.md   # Full protocol design
 
 🧪 What This Demo Proves

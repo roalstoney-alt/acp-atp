@@ -1,0 +1,24 @@
+# PATL v0.1 Alpha Release Checklist
+
+- [x] Repository audit produced.
+- [x] Reuse/archive/gap matrix produced.
+- [x] README, vision and roadmap updated.
+- [x] Foundational paper produced.
+- [x] PAAC spec and schema produced.
+- [x] Evidence spec produced.
+- [x] Agent credit event spec produced.
+- [x] Reference implementation added.
+- [x] Threat model and security boundaries documented.
+- [x] Automated tests added.
+- [x] Adversarial test matrix produced.
+- [x] Reproducible demos added.
+- [x] MVP validation report produced.
+- [x] Launch article produced.
+- [x] FAQ produced.
+- [x] Contributor guide produced.
+- [x] Changelog produced.
+- [ ] Independent external security review.
+- [ ] Durable replay store.
+- [ ] Cryptographic signing.
+- [ ] Hardware-backed authority vault.
+- [ ] Real connector security design.
