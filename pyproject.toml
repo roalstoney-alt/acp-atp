@@ -3,3 +3,6 @@ name = "acp-atp"
 version = "0.1.0-alpha"
 description = "Adaptive Credit & Trust Protocol with Personal Agent Trust Layer alpha"
 requires-python = ">=3.11"
+dependencies = [
+  "jsonschema>=4.0"
+]

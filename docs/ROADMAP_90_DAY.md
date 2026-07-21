@@ -2,10 +2,11 @@
 
 ## Days 0-30: Alpha Hardening
 
-- Expand PAAC examples for calendar, contacts and messaging.
+- Harden the existing email, travel and file scenarios before adding new domains.
 - Add canonical JSON signing interface.
 - Add local CLI for evaluating action requests.
-- Add schema validation without external services.
+- Expand schema/runtime conformance fixtures.
+- Add durable local replay and revocation store design.
 - Run external security review on threat model and tests.
 
 ## Days 31-60: Interoperability Draft

@@ -336,9 +336,9 @@ pre {
   <div class="container">
     <h2>Personal Agent Trust Layer</h2>
     <p>
-      ACP-ATP now includes a local authorization layer for personal AI agents.
-      PAAC contracts keep authority bounded while the gateway returns deterministic decisions:
-      allow, log, require confirmation, or block.
+      ACP-ATP now includes a local v0.1.1 authorization layer for personal AI agents.
+      PAAC contracts bind agent stack, tools, parameters, lifecycle state and evidence while
+      the gateway returns deterministic decisions: allow, log, require confirmation, or block.
     </p>
 
     <div class="decision-strip">
@@ -368,16 +368,16 @@ pre {
             <div id="trustScope">recipients: example.com; actions: draft, send</div>
           </div>
           <div class="decision-cell">
-            <span>Evidence</span>
-            <div id="trustEvidence">ev_email_send_confirmation_required</div>
+            <span>Lifecycle</span>
+            <div id="trustLifecycle">PENDING -> AWAITING_CONFIRMATION</div>
           </div>
           <div class="decision-cell">
             <span>Blocked Boundary</span>
             <div id="trustBoundary">unapproved recipients and silent send</div>
           </div>
           <div class="decision-cell">
-            <span>Alpha Status</span>
-            <div>mock service, no real account access</div>
+            <span>Evidence</span>
+            <div id="trustEvidence">digest-bound, hash-chained</div>
           </div>
         </div>
       </div>
@@ -459,7 +459,8 @@ const trustScenarios = {
     title: "Draft allowed. Send requires user confirmation.",
     summary: "The agent may draft to an approved recipient, but sending the email is a critical action and cannot depend solely on model judgment.",
     scope: "recipients: example.com; actions: draft, send",
-    evidence: "ev_email_send_confirmation_required",
+    lifecycle: "PENDING -> AWAITING_CONFIRMATION",
+    evidence: "request digest + ledger hash",
     boundary: "unapproved recipients and silent send"
   },
   travel: {
@@ -468,7 +469,8 @@ const trustScenarios = {
     title: "Payment above limit is blocked.",
     summary: "The travel agent may search and reserve, but a purchase above the PAAC limit is deterministically blocked.",
     scope: "currency: USD; max payment: 500; actions: search, reserve, purchase",
-    evidence: "ev_travel_payment_limit_exceeded",
+    lifecycle: "PENDING -> BLOCKED",
+    evidence: "limit violation + ledger hash",
     boundary: "payment above limit, wrong currency, saved payment credential"
   },
   files: {
@@ -477,7 +479,8 @@ const trustScenarios = {
     title: "Deletion and upload are blocked.",
     summary: "The file agent may list, rename, and move inside the scoped demo folder. Delete and upload are denied in the contract.",
     scope: "path: /workspace/demo; actions: list, move, rename",
-    evidence: "ev_file_delete_prohibited",
+    lifecycle: "PENDING -> BLOCKED",
+    evidence: "prohibited action + ledger hash",
     boundary: "delete, upload, path escape"
   }
 };
@@ -492,6 +495,7 @@ function runTrustDemo(key, button) {
   document.getElementById("trustTitle").textContent = scenario.title;
   document.getElementById("trustSummary").textContent = scenario.summary;
   document.getElementById("trustScope").textContent = scenario.scope;
+  document.getElementById("trustLifecycle").textContent = scenario.lifecycle;
   document.getElementById("trustEvidence").textContent = scenario.evidence;
   document.getElementById("trustBoundary").textContent = scenario.boundary;
 }

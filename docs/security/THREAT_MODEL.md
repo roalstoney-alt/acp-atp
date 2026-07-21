@@ -13,44 +13,54 @@
 
 - Agent exceeds task scope.
 - Prompt injection asks agent to ignore contract.
-- Agent tries replaying a previously allowed request.
-- Agent tries to send to a new recipient.
-- Agent tries to exceed payment limits.
-- Agent tries to delete or upload scoped files.
-- Agent continues after revocation.
-- Agent swaps identity or version.
+- Agent replays a consumed request.
+- Agent swaps parameters after user confirmation.
+- Agent changes model, version, tools or delegation path.
+- Agent sends email to a new recipient domain.
+- Agent exceeds payment limits.
+- Agent deletes or uploads scoped files.
+- Agent continues after expiry or revocation.
+- Host process tampers with in-memory evidence.
 
-## Implemented Controls
+## Implemented
 
-- Contract lookup and agent identity match.
+- Contract lookup and agent stack match: `agent_id`, `agent_version`, `model_id` and declared tools.
+- Delegation blocking when `delegation_policy` is `none`.
 - Action allowlist and denylist.
-- Expiry checks.
+- Per-request clock evaluation for expiry.
 - Revocation checks.
-- Replay detection.
+- Explicit request lifecycle: `PENDING`, `AWAITING_CONFIRMATION`, `AUTHORIZED`, `EXECUTED`, `CONSUMED`, `BLOCKED`, `EXPIRED`, `REVOKED`.
+- `REQUIRE_CONFIRMATION` does not consume the request.
+- Confirmation digest binding over contract, request, agent stack, action, resource and complete parameters.
+- Confirmation expiry checks.
+- Maximum execution checks.
 - Email recipient domain checks.
 - Travel payment limit and currency checks.
-- File path scope checks.
-- Deterministic confirmation requirement.
+- File path scope checks for synthetic POSIX paths.
 - Evidence and Agent credit event generation.
+- Minimal in-memory hash-chained evidence ledger with `verify_integrity()`.
+- Automated adversarial tests for replay, substitution, version/model/tool/delegation mismatch and ledger mutation.
 
-## Simulated Controls
+## Simulated
 
-- User confirmation.
+- User confirmation signatures.
 - Agent identity attestation.
 - Local authority vault.
+- Email, travel, payment and file service execution.
 
-## Proposed Controls
+## Proposed
 
-- Hardware-backed keys.
+- Hardware-backed or OS-backed signing keys.
 - Signed PAAC bundles.
-- Signed evidence logs.
-- Independent audit network.
+- Signed evidence logs or append-only transparency service.
 - OS-level tool interception.
+- Durable replay and revocation store.
+- Connector-level sandboxing.
 
-## Unresolved Risks
+## Unresolved
 
-- In-memory replay protection is not durable across process restart.
-- Agent identity is declared, not cryptographically attested.
-- File path checks are POSIX-style and do not cover symlink races or platform-specific path behavior.
-- No real connector sandbox exists in alpha.
-- No protection against malicious host process tampering.
+- P0: Agent identity is declared, not cryptographically attested.
+- P0: The reference ledger and lifecycle state are in-memory and can be lost or modified by a malicious host process.
+- P1: Replay protection is not durable across process restart.
+- P1: File path checks do not address symlink races, mount aliases or platform-specific path normalization.
+- P1: No real connector sandbox exists in alpha.

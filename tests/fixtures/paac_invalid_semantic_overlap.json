@@ -1,0 +1,31 @@
+{
+  "paac_version": "0.1",
+  "contract_id": "paac_email_fixture",
+  "principal": {
+    "type": "individual",
+    "pseudonymous_id": "user_local_001"
+  },
+  "agent_stack": {
+    "agent_id": "email-agent.mock",
+    "agent_version": "0.1.1",
+    "model_id": "mock-llm-email-v1",
+    "tool_ids": ["mock_email_draft", "mock_email_send"]
+  },
+  "purpose": "Invalid fixture with permitted/prohibited overlap.",
+  "permitted_actions": ["email.draft", "email.send"],
+  "prohibited_actions": ["email.send"],
+  "resources": {},
+  "constraints": {},
+  "validity": {
+    "valid_from": "2026-07-21T00:00:00Z",
+    "valid_until": "2026-07-28T00:00:00Z"
+  },
+  "confirmation_required_actions": ["email.send"],
+  "log_required_actions": ["email.draft", "email.send"],
+  "maximum_executions": 10,
+  "delegation_policy": "none",
+  "revocation": {
+    "revoked": false,
+    "revoked_at": null
+  }
+}

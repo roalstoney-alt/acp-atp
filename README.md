@@ -56,13 +56,17 @@ It ensures:
 
 ## Personal Agent Trust Layer
 
-ACP-ATP now includes a local v0.1 alpha trust layer for personal AI agents.
+ACP-ATP now includes a local v0.1.1 alpha trust layer for personal AI agents.
 
 It adds:
 
 - **PAAC v0.1** — Personal Agent Authorization Contract.
 - **Deterministic ATP gateway decisions** — `ALLOW`, `ALLOW_WITH_LOG`, `REQUIRE_CONFIRMATION`, `BLOCK`.
+- **Explicit authorization lifecycle** — `PENDING`, `AWAITING_CONFIRMATION`, `AUTHORIZED`, `EXECUTED`, `CONSUMED`, `BLOCKED`, `EXPIRED`, `REVOKED`.
+- **Digest-bound confirmations** — confirmation is tied to contract, request, agent stack, action, resource and full parameters.
+- **Canonical PAAC loader** — Draft 2020-12 JSON Schema validation plus semantic runtime checks.
 - **Evidence events** — minimal audit records without raw private content by default.
+- **Hash-chained evidence ledger** — in-memory integrity checks with mutation detection tests.
 - **Agent credit events** — behavior summaries derived from evidence, never permission overrides.
 - **Mock personal-agent demos** — email drafting/sending, travel search/payment limits, and scoped file management.
 

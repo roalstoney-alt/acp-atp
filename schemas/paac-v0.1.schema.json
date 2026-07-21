@@ -3,7 +3,23 @@
   "$id": "https://patl.example/schemas/paac-v0.1.schema.json",
   "title": "Personal Agent Authorization Contract v0.1",
   "type": "object",
-  "required": ["paac_version", "contract_id", "principal", "agent_stack", "purpose", "permitted_actions", "prohibited_actions", "resources", "constraints", "validity", "confirmation_required_actions"],
+  "required": [
+    "paac_version",
+    "contract_id",
+    "principal",
+    "agent_stack",
+    "purpose",
+    "permitted_actions",
+    "prohibited_actions",
+    "resources",
+    "constraints",
+    "validity",
+    "confirmation_required_actions",
+    "log_required_actions",
+    "maximum_executions",
+    "delegation_policy",
+    "revocation"
+  ],
   "properties": {
     "paac_version": {"const": "0.1"},
     "contract_id": {"type": "string", "minLength": 1},
@@ -11,25 +27,38 @@
       "type": "object",
       "required": ["type", "pseudonymous_id"],
       "properties": {
-        "type": {"enum": ["individual"]},
-        "pseudonymous_id": {"type": "string"}
+        "type": {"const": "individual"},
+        "pseudonymous_id": {"type": "string", "minLength": 1}
       },
       "additionalProperties": false
     },
     "agent_stack": {
       "type": "object",
-      "required": ["agent_id", "agent_version", "model_id"],
+      "required": ["agent_id", "agent_version", "model_id", "tool_ids"],
       "properties": {
-        "agent_id": {"type": "string"},
-        "agent_version": {"type": "string"},
-        "model_id": {"type": "string"},
-        "tool_ids": {"type": "array", "items": {"type": "string"}}
+        "agent_id": {"type": "string", "minLength": 1},
+        "agent_version": {"type": "string", "minLength": 1},
+        "model_id": {"type": "string", "minLength": 1},
+        "tool_ids": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        }
       },
       "additionalProperties": false
     },
-    "purpose": {"type": "string"},
-    "permitted_actions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
-    "prohibited_actions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "purpose": {"type": "string", "minLength": 1},
+    "permitted_actions": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "prohibited_actions": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
     "resources": {"type": "object"},
     "constraints": {"type": "object"},
     "validity": {
@@ -41,10 +70,26 @@
       },
       "additionalProperties": false
     },
-    "confirmation_required_actions": {"type": "array", "items": {"type": "string"}},
+    "confirmation_required_actions": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "log_required_actions": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "maximum_executions": {"type": "integer", "minimum": 1},
+    "delegation_policy": {"enum": ["none", "single_agent"]},
     "revocation": {
       "type": "object",
-      "properties": {"revoked": {"type": "boolean"}, "revoked_at": {"type": ["string", "null"], "format": "date-time"}}
+      "required": ["revoked", "revoked_at"],
+      "properties": {
+        "revoked": {"type": "boolean"},
+        "revoked_at": {"type": ["string", "null"], "format": "date-time"}
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false
