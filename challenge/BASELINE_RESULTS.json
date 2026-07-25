@@ -1,0 +1,113 @@
+{
+  "challenge_id": "PATL-BOUNDARY-CHALLENGE-001",
+  "environment": "local synthetic fixtures only",
+  "failed": 0,
+  "passed": 15,
+  "results": [
+    {
+      "detail": "",
+      "expected": "REQUIRE_CONFIRMATION",
+      "id": "BC-001",
+      "observed": "REQUIRE_CONFIRMATION",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "REQUIRE_CONFIRMATION",
+      "id": "BC-002",
+      "observed": "REQUIRE_CONFIRMATION",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "REQUIRE_CONFIRMATION",
+      "id": "BC-003",
+      "observed": "REQUIRE_CONFIRMATION",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "BLOCK",
+      "id": "BC-004",
+      "observed": "BLOCK",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "BLOCK",
+      "id": "BC-005",
+      "observed": "BLOCK",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "BLOCK",
+      "id": "BC-006",
+      "observed": "BLOCK",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "BLOCK",
+      "id": "BC-007",
+      "observed": "BLOCK",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "BLOCK",
+      "id": "BC-008",
+      "observed": "BLOCK",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "BLOCK",
+      "id": "BC-009",
+      "observed": "BLOCK",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "BLOCK",
+      "id": "BC-010",
+      "observed": "BLOCK",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "BLOCK",
+      "id": "BC-011",
+      "observed": "BLOCK",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "BLOCK",
+      "id": "BC-012",
+      "observed": "BLOCK",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "INTEGRITY_FAILURE",
+      "id": "BC-013",
+      "observed": "INTEGRITY_FAILURE",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "ALLOW",
+      "id": "BC-014",
+      "observed": "ALLOW",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "ALLOW_WITH_LOG",
+      "id": "BC-015",
+      "observed": "ALLOW_WITH_LOG",
+      "passed": true
+    }
+  ]
+}

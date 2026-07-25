@@ -1,0 +1,46 @@
+name: Authorization bypass
+description: Report a bounded local PATL authorization bypass.
+title: "[Bypass]: "
+labels: ["authorization-bypass", "security-review", "patl-v0.1.1"]
+body:
+  - type: markdown
+    attributes:
+      value: "Authorized scope is limited to local synthetic fixtures and mock tools. Do not test real systems or include exploit details for live targets."
+  - type: input
+    id: scenario
+    attributes:
+      label: Scenario id
+      placeholder: "BC-001 or proposed synthetic scenario"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Local reproduction steps
+      description: Exact secret-free steps using this repository only.
+    validations:
+      required: true
+  - type: textarea
+    id: expected_observed
+    attributes:
+      label: Expected versus observed decision
+      description: Include ALLOW, ALLOW_WITH_LOG, REQUIRE_CONFIRMATION, BLOCK, or INTEGRITY_FAILURE.
+    validations:
+      required: true
+  - type: dropdown
+    id: boundary
+    attributes:
+      label: Does this require breaking the trusted local enforcement boundary?
+      options:
+        - "No"
+        - "Yes"
+        - "Unknown"
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact and suggested fix
+    validations:
+      required: false
+

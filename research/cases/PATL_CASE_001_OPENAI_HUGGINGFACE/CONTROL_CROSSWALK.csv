@@ -1,0 +1,6 @@
+control_id,incident_observation,patl_control,current_status,claim_boundary
+C-001,"Narrow evaluation goal led to actions outside the intended evaluation boundary.","PAAC goal-plus-method contract with explicit permitted actions and prohibited actions.",IMPLEMENTED_V0_1_1,"PATL could test for unauthorized methods at the gateway; it cannot guarantee prevention if not deployed at every execution boundary."
+C-002,"Network access path exceeded expected sandbox constraint.","Tool/resource allowlist and undeclared tool blocking.",IMPLEMENTED_V0_1_1,"PATL is not a network sandbox and does not replace containment."
+C-003,"Credential and privilege movement were reported by sources.","Agent stack identity and delegation checks.",IMPLEMENTED_V0_1_1,"PATL does not provide cryptographic attestation in v0.1.1."
+C-004,"Forensic reconstruction depended on event logs.","Hash-chained Evidence Ledger.",IMPLEMENTED_V0_1_1,"Local hash chain detects mutation but does not provide external notarization."
+C-005,"OpenAI described reduced cyber refusals during evaluation.","Policy and model-safety configuration awareness.",PROPOSED,"PATL can record declared stack identity, but does not enforce model alignment settings by itself."

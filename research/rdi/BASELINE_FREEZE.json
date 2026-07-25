@@ -1,0 +1,63 @@
+{
+  "baseline_id": "PATL-RDI-DAY1-BASELINE-20260724T234321Z",
+  "freeze_time_utc": "2026-07-24T23:43:21Z",
+  "workspace": "local non-git sprint source",
+  "git_commit": null,
+  "git_commit_status": "UNAVAILABLE: git commands reported this directory is not a Git repository.",
+  "pre_change_tests": {
+    "command": "python3 -B -m unittest discover -s tests",
+    "tests_run": 18,
+    "passed": 18,
+    "failed": 0
+  },
+  "pre_change_demo": {
+    "command": "python3 -B -m trust_layer.demo_runner",
+    "decision_lines": [
+      "ALLOW_WITH_LOG within_scope_logged",
+      "REQUIRE_CONFIRMATION confirmation_required",
+      "ALLOW within_scope",
+      "BLOCK payment_amount_exceeds_contract_limit",
+      "ALLOW_WITH_LOG within_scope_logged",
+      "BLOCK action_explicitly_prohibited",
+      "BLOCK action_explicitly_prohibited"
+    ]
+  },
+  "baseline_inventory": {
+    "schema_count": 3,
+    "test_file_count": 3,
+    "trust_layer_python_files": 6,
+    "docs_archive_demo_file_count": 17,
+    "website_files": [
+      "index.html",
+      "index.before-patl-20260721.html",
+      "indexv2.html",
+      "indexv2n.html",
+      "indexv3.html",
+      "indexv3b.html"
+    ]
+  },
+  "baseline_public_claims": [
+    "PATL is a local v0.1 alpha trust layer.",
+    "PATL provides deterministic ALLOW, ALLOW_WITH_LOG, REQUIRE_CONFIRMATION, and BLOCK decisions.",
+    "PATL evidence events avoid raw private content by default.",
+    "Mock demos are synthetic and do not connect to real accounts."
+  ],
+  "baseline_known_p0_issues": [
+    "Confirmation was bound only to request_id and user flag, not full canonical request digest, nonce, or expiry.",
+    "A request that returned REQUIRE_CONFIRMATION was consumed by replay detection before confirmation could be retried.",
+    "Agent stack identity checks did not cover model_id, tool_id, or agent_version request metadata.",
+    "Evidence ledger was append-only in memory but not hash chained."
+  ],
+  "baseline_known_p1_issues": [
+    "No JSON-to-runtime PAAC loader.",
+    "Schema validation tests checked JSON syntax but not Draft 2020-12 validation of runtime input.",
+    "No external reproduction package.",
+    "No external agent framework adapter.",
+    "No public case study or standards crosswalk."
+  ],
+  "external_reviewers": 0,
+  "external_reproductions": 0,
+  "external_integrations": 0,
+  "qualified_external_events": 0,
+  "immutability_note": "This file records observed Day-1 baseline facts before new sprint result claims. It must not be rewritten to improve later results."
+}

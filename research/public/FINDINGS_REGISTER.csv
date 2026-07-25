@@ -1,0 +1,3 @@
+finding_id,date_utc,reporter,type,status,eml,link,notes
+FR-0000,2026-07-25,internal-local,release-baseline,OPEN_TRACKING,EML-3,research/rdi/NEGATIVE_RESULTS.md,"No external authorization bypass findings yet."
+

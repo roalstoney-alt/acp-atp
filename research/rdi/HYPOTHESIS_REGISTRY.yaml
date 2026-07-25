@@ -1,0 +1,55 @@
+hypotheses:
+  - id: RQ-01
+    line: A
+    registered_at_utc: "2026-07-24T23:43:21Z"
+    hypothesis: "The OpenAI-Hugging Face incident can be explained as a goal-versus-method authorization failure more precisely than a generic sandbox failure alone."
+    expected_result: "Case Study 001 identifies at least three concrete method-boundary controls that are distinguishable from sandbox containment."
+    failure_condition: "The analysis adds no control concept beyond established agent security frameworks."
+    required_evidence: "Primary incident sources, claim classification, control mapping, falsifiable propositions."
+    decision_after_failure: "Revise PATL positioning toward existing framework terminology and reduce novelty claims."
+    status: REGISTERED
+  - id: RQ-02
+    line: A
+    registered_at_utc: "2026-07-24T23:43:21Z"
+    hypothesis: "PAAC plus an external enforcement gateway can deterministically block unauthorized tools, targets, privilege changes, parameter substitutions, revocation bypass, and replay while allowing legitimate actions."
+    expected_result: "All Phase 2 adversarial tests and Boundary Challenge scenarios pass locally."
+    failure_condition: "An agent bypasses enforcement without breaking the trusted boundary, or legitimate tasks become impractically difficult."
+    required_evidence: "Unit tests, Boundary Challenge results, evidence-chain verification."
+    decision_after_failure: "Freeze affected control claim and record bypass as negative evidence."
+    status: REGISTERED
+  - id: RQ-03
+    line: B
+    registered_at_utc: "2026-07-24T23:43:21Z"
+    hypothesis: "An unfamiliar developer can reproduce the demos and Boundary Challenge within 30 minutes from documentation."
+    expected_result: "A reviewer completes documented clone, install, tests, demos, challenge, and evidence verification without direct assistance."
+    failure_condition: "Reproduction requires undocumented setup, direct help, or local assumptions."
+    required_evidence: "External reproduction report or internal dry run clearly labeled internal."
+    decision_after_failure: "Improve documentation and downgrade reproducibility maturity."
+    status: REGISTERED
+  - id: RQ-04
+    line: A
+    registered_at_utc: "2026-07-24T23:43:21Z"
+    hypothesis: "One open agent framework can call PATL before executing protected tools without forking framework core."
+    expected_result: "Adapter demonstrates allow, confirmation, block, revocation, and evidence at a normal tool-execution boundary."
+    failure_condition: "Integration requires redesigning or forking the framework."
+    required_evidence: "Adapter code, demo, tests, limitation statement."
+    decision_after_failure: "Narrow integration claim to a framework-shaped boundary until dependency-backed integration is done."
+    status: REGISTERED
+  - id: RQ-05
+    line: B
+    registered_at_utc: "2026-07-24T23:43:21Z"
+    hypothesis: "External reviewers can correctly explain PATL as an authorization layer, not another agent, model, sandbox, or phone OS."
+    expected_result: "Most qualified reviewers classify PATL correctly after reading public materials."
+    failure_condition: "Most reviewers classify PATL incorrectly."
+    required_evidence: "Reviewer responses and structured feedback."
+    decision_after_failure: "Rewrite public explanation and add comparison diagrams."
+    status: REGISTERED
+  - id: RQ-06
+    line: B
+    registered_at_utc: "2026-07-24T23:43:21Z"
+    hypothesis: "Evidence-led publication produces more qualified engagement than general philosophical content."
+    expected_result: "Technical issues, PRs, reproduction results, control criticism, integration requests, or standards discussions exceed superficial-only engagement."
+    failure_condition: "Engagement is limited to views, likes, or nontechnical responses."
+    required_evidence: "Outreach experiment log and qualified event ledger."
+    decision_after_failure: "Change outreach channels and framing, not evidence standards."
+    status: REGISTERED

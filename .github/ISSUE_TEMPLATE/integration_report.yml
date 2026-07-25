@@ -1,0 +1,39 @@
+name: Integration report
+description: Report an attempted PATL integration with an agent framework or tool boundary.
+title: "[Integration]: "
+labels: ["integration", "patl-v0.1.1"]
+body:
+  - type: input
+    id: framework
+    attributes:
+      label: Framework or tool boundary
+    validations:
+      required: true
+  - type: dropdown
+    id: status
+    attributes:
+      label: Integration status
+      options:
+        - LOCAL_ADAPTER_ONLY
+        - STARTED
+        - BLOCKED_DEPENDENCY
+        - PARTIAL_INTEGRATION
+        - FULL_LOCAL_INTEGRATION
+        - RESULT_MISMATCH
+    validations:
+      required: true
+  - type: textarea
+    id: changes
+    attributes:
+      label: Changes required
+      description: Note whether the framework core was modified.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and limitations
+      description: Include secret-free commands, outputs and open limitations.
+    validations:
+      required: true
+

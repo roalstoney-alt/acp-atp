@@ -74,6 +74,40 @@ This layer is intentionally synthetic and local. It does not connect to real ema
 
 ---
 
+## PATL v0.1.1 Boundary Challenge
+
+Public status:
+
+- Local technical validation: PASS
+- Automated tests: 36/36, or verified updated count in CI if the test suite changes
+- Boundary Challenge: 15/15
+- Independent reproduction: PENDING
+- Real framework integration: PENDING
+- Organizational adoption: PENDING
+- Production readiness: NO
+
+Start here:
+
+- [External reproduction guide](REPRODUCTION.md)
+- [Boundary Challenge](challenge/README.md)
+- [Challenge rules](challenge/RULES.md)
+- [Safety boundaries](challenge/SAFETY_BOUNDARIES.md)
+- [Responsible disclosure](SECURITY.md)
+- [PAAC specification](docs/specs/PAAC_v0.1.md)
+- [Evidence specification](docs/specs/EVIDENCE_SPEC_v0.1.md)
+- [Agent credit event specification](docs/specs/AGENT_CREDIT_EVENT_SPEC_v0.1.md)
+- [Evidence ledger](research/rdi/EVIDENCE_LEDGER.csv)
+- [EML ledger](research/rdi/EML_LEDGER.csv)
+- [Public reproduction register](research/public/REPRODUCTION_REGISTER.csv)
+- [Public findings register](research/public/FINDINGS_REGISTER.csv)
+- [Public integration register](research/public/INTEGRATION_REGISTER.csv)
+
+The challenge authorizes only local, defensive testing using synthetic data, mock tools and local fixtures. It does not authorize attacks against ACP-ATP infrastructure, GitHub, third-party systems, real accounts, production services, payment systems, personal files, credentials or external networks.
+
+Outreach and public posting materials are prepared in `content/outreach/` but are not sent or published without explicit human authorization.
+
+---
+
 ## 🧬 Architecture Overview
 
 GPT / LLM (Decision Engine)

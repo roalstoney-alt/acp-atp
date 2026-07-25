@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ACP–ATP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#05070d;
+  color:white;
+}
+
+/* NAV */
+.nav {
+  display:flex;
+  justify-content:space-between;
+  padding:20px 40px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.menu {
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.nav a {
+  color:white;
+  text-decoration:none;
+  opacity:0.7;
+}
+
+/* LANGUAGE SWITCH */
+.lang-switch {
+  margin-left:20px;
+}
+
+.lang-switch a {
+  cursor:pointer;
+  margin-left:10px;
+}
+
+/* DROPDOWN */
+.dropdown {
+  position:relative;
+}
+
+.dropdown-content {
+  position:absolute;
+  top:30px;
+  background:#111827;
+  border-radius:8px;
+  padding:10px;
+  min-width:160px;
+  display:none;
+}
+
+.dropdown-content a {
+  display:block;
+  padding:8px;
+}
+
+.dropdown:hover .dropdown-content {
+  display:block;
+}
+
+/* LAYOUT */
+.container {
+  max-width:900px;
+  margin:auto;
+  padding:80px 20px;
+}
+
+h1 {font-size:48px;}
+h2 {margin-top:100px;}
+p {color:#9ca3af; line-height:1.7;}
+
+.btn {
+  display:inline-block;
+  padding:12px 18px;
+  border-radius:6px;
+  background:#6366f1;
+  color:white;
+  text-decoration:none;
+  margin-right:10px;
+  margin-top:20px;
+}
+
+/* DIAGRAM */
+.diagram {
+  margin-top:60px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:25px;
+}
+
+.layer {
+  padding:18px 30px;
+  border-radius:8px;
+  background:#111827;
+  text-align:center;
+  opacity:0;
+  transform:translateY(10px);
+  animation:fadeIn 1s forwards;
+}
+
+.layer:nth-child(1){animation-delay:0.3s;}
+.layer:nth-child(2){animation-delay:0.8s;}
+.layer:nth-child(3){animation-delay:1.3s;}
+
+.layer.core { background:#6366f1; }
+
+.bottom { display:flex; gap:30px; }
+
+@keyframes fadeIn {
+  to {opacity:1; transform:translateY(0);}
+}
+
+/* PRODUCTS */
+.product {
+  margin-top:30px;
+  padding:20px;
+  background:#111827;
+  border-radius:8px;
+}
+
+/* FOOTER */
+.footer {
+  margin-top:120px;
+  padding-top:40px;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+
+/* LANGUAGE CONTROL */
+.en { display:block; }
+.zh { display:none; }
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <div><b>ACP–ATP</b></div>
+
+  <div class="menu">
+    <a href="#about">About</a>
+
+    <div class="dropdown">
+      <span>System ▾</span>
+      <div class="dropdown-content">
+        <a href="https://roalstoney-alt.github.io/GMPE/">GPDE</a>
+        <a href="#">AI Guard</a>
+        <a href="#">ACP Engine</a>
+      </div>
+    </div>
+
+    <a href="#join">Join</a>
+
+    <div class="lang-switch">
+      <a onclick="switchLang('en')">EN</a>
+      <a onclick="switchLang('zh')">中文</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- HERO -->
+<h1>
+<span class="en">Coordinate Execution Across AI, Humans, and Capital</span>
+<span class="zh">协调 AI、人类与资本的执行</span>
+</h1>
+
+<p>
+<span class="en">ACP–ATP reduces coordination cost by turning behavior into verifiable signals.</span>
+<span class="zh">ACP–ATP 通过将行为转化为可验证信号，降低协作成本。</span>
+</p>
+
+<a class="btn" href="ACP-ATP.pdf">Whitepaper</a>
+<a class="btn" href="https://github.com/YOUR_GITHUB">GitHub</a>
+
+<!-- POSITION -->
+<h2>
+<span class="en">Where We Sit</span>
+<span class="zh">我们的位置</span>
+</h2>
+
+<p>
+<span class="en">The next internet is built on execution, not information.</span>
+<span class="zh">下一代互联网建立在执行之上，而非信息。</span>
+</p>
+
+<div class="diagram">
+  <div class="layer">Applications</div>
+  <div class="layer core">ACP–ATP</div>
+  <div class="bottom">
+    <div class="layer">AI Agents</div>
+    <div class="layer">Humans</div>
+  </div>
+</div>
+
+<p>
+<span class="en">We sit where execution becomes trust, and trust becomes value.</span>
+<span class="zh">我们处在执行转化为信任、信任转化为价值的位置。</span>
+</p>
+
+<!-- ABOUT -->
+<h2 id="about">
+<span class="en">Why This Exists</span>
+<span class="zh">为什么存在</span>
+</h2>
+
+<p class="en">
+Execution today is expensive — unclear communication, unverifiable outcomes, and fragile trust.
+</p>
+<p class="zh">
+当前执行成本高：沟通不清晰、结果不可验证、信任脆弱。
+</p>
+
+<!-- SYSTEM -->
+<h2>System</h2>
+
+<div class="product">
+<b>GPDE</b><br>
+<span class="en">Human execution network</span>
+<span class="zh">人类执行网络</span>
+</div>
+
+<div class="product">
+<b>AI Guard</b><br>
+<span class="en">AI behavior recording</span>
+<span class="zh">AI 行为记录</span>
+</div>
+
+<div class="product">
+<b>ACP Engine</b><br>
+<span class="en">Core coordination logic</span>
+<span class="zh">核心协调引擎</span>
+</div>
+
+<!-- JOIN -->
+<h2 id="join">
+<span class="en">Join</span>
+<span class="zh">加入我们</span>
+</h2>
+
+<p class="en">
+If you believe execution should be verifiable and coordination cost should approach zero, build with us.
+</p>
+<p class="zh">
+如果你相信执行应可验证、协作成本应趋近于零，欢迎加入我们。
+</p>
+
+<a class="btn" href="https://github.com/YOUR_GITHUB">GitHub</a>
+<a class="btn" href="https://x.com/YOUR_X">X</a>
+
+<div class="footer">
+<p>From Proof of Work → Proof of Behavior</p>
+</div>
+
+</div>
+
+<script>
+function switchLang(lang){
+  if(lang === 'zh'){
+    document.querySelectorAll('.en').forEach(e=>e.style.display='none');
+    document.querySelectorAll('.zh').forEach(e=>e.style.display='block');
+  } else {
+    document.querySelectorAll('.en').forEach(e=>e.style.display='block');
+    document.querySelectorAll('.zh').forEach(e=>e.style.display='none');
+  }
+}
+
+// auto detect
+const userLang = navigator.language || navigator.userLanguage;
+if(userLang.startsWith('zh')){
+  switchLang('zh');
+}
+</script>
+
+</body>
+</html>

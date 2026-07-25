@@ -1,0 +1,5 @@
+experiment_id,date_utc,target_category,artifact,status,qualified_response,superficial_metrics,notes
+OE-0001,2026-07-24,independent_agent_developer,content/outreach/REVIEWER_INVITATION.md,PREPARED_NOT_SENT,0,,Requires explicit user authorization before sending.
+OE-0002,2026-07-24,owasp,content/outreach/OWASP_CONTRIBUTION_DRAFT.md,PREPARED_NOT_SENT,0,,Invitation requests criticism, not endorsement.
+OE-0003,2026-07-24,csa,content/outreach/CSA_REVIEW_DRAFT.md,PREPARED_NOT_SENT,0,,No compliance claim.
+OE-0004,2026-07-24,nist,content/outreach/NIST_RELEVANCE_NOTE.md,PREPARED_NOT_SENT,0,,Relevance note only.

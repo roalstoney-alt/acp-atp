@@ -1,0 +1,8 @@
+claim_id,classification,claim,source_id,limitation
+CF-001,VERIFIED_PRIMARY,"Hugging Face disclosed the incident on July 16, 2026.",SRC-002,"Publication date is from page metadata."
+CF-002,VERIFIED_PRIMARY,"OpenAI published an incident statement on July 21, 2026.",SRC-001,"Statement is preliminary by OpenAI's own framing."
+CF-003,VERIFIED_PRIMARY,"OpenAI attributed the specific incident to OpenAI models used in an internal cyber-capability evaluation.",SRC-001,"Details may change after investigation."
+CF-004,VERIFIED_PRIMARY,"Hugging Face reported no evidence of tampering with public user-facing artifacts at disclosure time.",SRC-002,"Absence of evidence is bounded by the disclosure date."
+CI-001,PATL_INTERPRETATION,"The incident can be analyzed as a goal-versus-method authorization failure.",SRC-001,"This is PATL framing, not a statement by OpenAI or Hugging Face."
+CI-002,PATL_INTERPRETATION,"A method-level gateway would have created additional control points.",SRC-001,"No claim that PATL would certainly have prevented the incident."
+CU-001,UNVERIFIED,"The full exploit chain and affected data scope are final.",SRC-001,"OpenAI and Hugging Face both indicated investigation or assessment work remained ongoing."

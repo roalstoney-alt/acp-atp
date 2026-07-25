@@ -1,0 +1,6 @@
+evidence_id,date_utc,line,phase,type,claim_or_result,source,classification,eml,notes
+EV-0001,2026-07-24,RDI,0,baseline,"Pre-change unit tests ran 18 tests with 0 failures","python3 -B -m unittest discover -s tests",FACT,EML-3,"Internal reproduction only."
+EV-0002,2026-07-24,RDI,0,baseline,"Git commit unavailable because workspace is not a Git repository","git rev-parse HEAD",FACT,EML-3,"Do not invent commit."
+EV-0003,2026-07-24,A,2,test,"Post-change unit tests ran 34 tests with 0 failures","python3 -B -m unittest discover -s tests",FACT,EML-3,"Internal reproduction only."
+EV-0004,2026-07-24,A,3,test,"Boundary Challenge 001 passed 15 of 15 local synthetic scenarios","python3 -B -m challenge.run_boundary_challenge",FACT,EML-3,"Internal reproduction only."
+EV-0005,2026-07-24,A,6,test,"Selected adapter demo produced allow, confirmation, confirmed allow, revocation block, undeclared-tool block, and valid evidence chain","python3 -B -m integrations.selected_framework.demo",FACT,EML-3,"Dependency-backed external framework integration not yet proven."
