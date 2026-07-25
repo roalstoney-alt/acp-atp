@@ -88,6 +88,7 @@ Public status:
 
 Start here:
 
+- [PATL Challenge Portal](challenge/portal.html)
 - [External reproduction guide](REPRODUCTION.md)
 - [Boundary Challenge](challenge/README.md)
 - [Challenge rules](challenge/RULES.md)
@@ -103,6 +104,8 @@ Start here:
 - [Public integration register](research/public/INTEGRATION_REGISTER.csv)
 
 The challenge authorizes only local, defensive testing using synthetic data, mock tools and local fixtures. It does not authorize attacks against ACP-ATP infrastructure, GitHub, third-party systems, real accounts, production services, payment systems, personal files, credentials or external networks.
+
+The static portal lets a reviewer create a browser-local synthetic tester profile, select one of the 15 challenge scenarios, and generate a structured issue report draft. It is not a real account system and does not store server-side data.
 
 Outreach and public posting materials are prepared in `content/outreach/` but are not sent or published without explicit human authorization.
 

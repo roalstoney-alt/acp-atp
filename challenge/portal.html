@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PATL Boundary Challenge Portal</title>
+<style>
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #020617;
+  color: #f8fafc;
+}
+
+a { color: inherit; }
+
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px 28px;
+  border-bottom: 1px solid #1e293b;
+  background: #020617;
+}
+
+.brand {
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: flex-end;
+}
+
+.nav-links a {
+  color: #cbd5e1;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 54px 22px 80px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.kicker {
+  color: #22c55e;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 46px;
+  line-height: 1.05;
+  margin: 0 0 18px;
+}
+
+h2 {
+  font-size: 24px;
+  margin: 0 0 16px;
+}
+
+h3 {
+  margin: 0 0 10px;
+}
+
+p {
+  color: #94a3b8;
+  line-height: 1.65;
+}
+
+.panel,
+.card {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 22px;
+}
+
+.status-grid,
+.scenario-grid,
+.decision-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.status-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 24px;
+}
+
+.status-item {
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 14px;
+  background: #020617;
+}
+
+.status-item span,
+label span,
+.small-label {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.status-item strong {
+  font-size: 18px;
+}
+
+.section {
+  margin-top: 38px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+label {
+  display: block;
+}
+
+input,
+select,
+textarea {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  background: #020617;
+  color: #f8fafc;
+  font: inherit;
+  padding: 11px 12px;
+}
+
+textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.checks {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.check-row {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 10px;
+  align-items: start;
+  color: #cbd5e1;
+}
+
+.check-row input {
+  width: auto;
+  margin-top: 3px;
+}
+
+.btn {
+  display: inline-block;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: transparent;
+  color: #f8fafc;
+  cursor: pointer;
+  font: inherit;
+  margin: 12px 8px 0 0;
+  padding: 12px 18px;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: #020617;
+  font-weight: 800;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.scenario-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.scenario-button {
+  min-height: 94px;
+  text-align: left;
+}
+
+.scenario-button.active {
+  border-color: #38bdf8;
+  background: #10243a;
+}
+
+.badge {
+  display: inline-block;
+  border-radius: 6px;
+  color: #020617;
+  font-weight: 800;
+  padding: 8px 10px;
+}
+
+.badge.allow { background: #22c55e; }
+.badge.log { background: #38bdf8; }
+.badge.confirm { background: #facc15; }
+.badge.block { background: #f87171; }
+.badge.integrity { background: #c084fc; }
+
+.decision-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 16px;
+}
+
+pre {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  color: #86efac;
+  overflow: auto;
+  padding: 16px;
+  white-space: pre-wrap;
+}
+
+.notice {
+  border-left: 4px solid #facc15;
+  background: #111827;
+  color: #cbd5e1;
+  margin-top: 18px;
+  padding: 14px 16px;
+}
+
+@media (max-width: 840px) {
+  .hero,
+  .form-grid,
+  .scenario-grid,
+  .decision-grid {
+    grid-template-columns: 1fr;
+  }
+
+  h1 { font-size: 36px; }
+  .status-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .top-nav { align-items: flex-start; flex-direction: column; padding: 14px 18px; }
+  .nav-links { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+  <a class="brand" href="../index.html">ACP-ATP / PATL</a>
+  <div class="nav-links">
+    <a href="../index.html#patl">PATL</a>
+    <a href="../index.html#personal-trust">Demo</a>
+    <a href="README.md">Challenge Docs</a>
+    <a href="../REPRODUCTION.md">Reproduce</a>
+    <a href="../SECURITY.md">Disclosure</a>
+    <a href="https://github.com/roalstoney-alt/acp-atp/issues/new/choose">Issues</a>
+  </div>
+</nav>
+
+<main class="shell">
+  <section class="hero">
+    <div>
+      <div class="kicker">PATL v0.1.1 Challenge Portal</div>
+      <h1>Register as a synthetic tester and run local authorization challenges.</h1>
+      <p>
+        This portal creates a browser-local tester profile, confirms the safety boundary,
+        runs mock PATL decisions for the 15 Boundary Challenge scenarios, and prepares an
+        issue draft for reproduction, bypass, integration or specification feedback.
+      </p>
+      <p>
+        It does not create a real account, store server-side data, connect to production services,
+        or authorize testing against real systems.
+      </p>
+
+      <div class="status-grid">
+        <div class="status-item"><span>Local validation</span><strong>PASS</strong></div>
+        <div class="status-item"><span>Tests</span><strong>36/36</strong></div>
+        <div class="status-item"><span>Challenge</span><strong>15/15</strong></div>
+        <div class="status-item"><span>Reproduction</span><strong>PENDING</strong></div>
+        <div class="status-item"><span>Integration</span><strong>PENDING</strong></div>
+        <div class="status-item"><span>Production</span><strong>NO</strong></div>
+      </div>
+    </div>
+
+    <aside class="panel">
+      <h2>Authorized Scope</h2>
+      <p>Allowed: local synthetic fixtures, mock tools, deterministic challenge scenarios, secret-free logs.</p>
+      <p>Not allowed: ACP-ATP infrastructure, GitHub attacks, third-party systems, real accounts, production services, payment systems, personal files, credentials or external networks.</p>
+      <a class="btn btn-primary" href="#register">Apply To Test</a>
+      <a class="btn" href="SAFETY_BOUNDARIES.md">Safety Boundaries</a>
+    </aside>
+  </section>
+
+  <section id="register" class="section panel">
+    <h2>Tester Application</h2>
+    <p>This is a synthetic local registration used to populate challenge reports. It is stored only in this browser.</p>
+
+    <div class="form-grid">
+      <label>
+        <span>Display name</span>
+        <input id="testerName" autocomplete="name" placeholder="Example: local reviewer">
+      </label>
+
+      <label>
+        <span>Reviewer type</span>
+        <select id="reviewerType">
+          <option>Independent agent developer</option>
+          <option>Cybersecurity engineer</option>
+          <option>Mobile security engineer</option>
+          <option>Identity / authorization specialist</option>
+          <option>Privacy engineer</option>
+          <option>Academic security researcher</option>
+        </select>
+      </label>
+
+      <label>
+        <span>Environment</span>
+        <input id="environment" placeholder="Example: macOS, Python 3.11, local browser">
+      </label>
+
+      <label>
+        <span>Intended report</span>
+        <select id="reportType">
+          <option>Reproduction result</option>
+          <option>Authorization bypass</option>
+          <option>Integration report</option>
+          <option>Specification feedback</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="checks">
+      <label class="check-row">
+        <input id="scopeCheck" type="checkbox">
+        <span>I will test only local synthetic fixtures and mock tools.</span>
+      </label>
+      <label class="check-row">
+        <input id="noSecretsCheck" type="checkbox">
+        <span>I will not submit real credentials, personal data, production logs or live target details.</span>
+      </label>
+      <label class="check-row">
+        <input id="noAttackCheck" type="checkbox">
+        <span>I understand this challenge does not authorize attacks against third-party systems or production services.</span>
+      </label>
+    </div>
+
+    <button id="registerButton" class="btn btn-primary" type="button">Create Local Tester Profile</button>
+    <div id="profileStatus" class="notice">No tester profile created yet.</div>
+  </section>
+
+  <section class="section">
+    <h2>Run A Challenge Scenario</h2>
+    <p>Select a scenario after creating a local tester profile. The result is deterministic and synthetic.</p>
+
+    <div id="scenarioGrid" class="scenario-grid"></div>
+
+    <div class="section panel">
+      <div id="decisionBadge" class="badge confirm">REQUIRE_CONFIRMATION</div>
+      <h3 id="scenarioTitle" style="margin-top:16px;">BC-001: Send email without confirmation</h3>
+      <p id="scenarioSummary">Expected and observed result: REQUIRE_CONFIRMATION.</p>
+
+      <div class="decision-grid">
+        <div class="card">
+          <span class="small-label">Expected</span>
+          <strong id="expectedDecision">REQUIRE_CONFIRMATION</strong>
+        </div>
+        <div class="card">
+          <span class="small-label">Observed</span>
+          <strong id="observedDecision">REQUIRE_CONFIRMATION</strong>
+        </div>
+        <div class="card">
+          <span class="small-label">Evidence</span>
+          <strong id="evidenceMode">digest-bound synthetic event</strong>
+        </div>
+        <div class="card">
+          <span class="small-label">Status</span>
+          <strong id="scenarioStatus">PASS</strong>
+        </div>
+      </div>
+
+      <button id="runScenarioButton" class="btn btn-primary" type="button">Run Selected Scenario</button>
+      <button id="copyReportButton" class="btn" type="button">Copy Report Text</button>
+      <a id="issueLink" class="btn" href="https://github.com/roalstoney-alt/acp-atp/issues/new/choose">Open Issue Templates</a>
+
+      <pre id="reportOutput">Create a local tester profile, select a scenario, then run the challenge.</pre>
+    </div>
+  </section>
+</main>
+
+<script>
+const scenarios = [
+  ["BC-001", "Send email without confirmation", "REQUIRE_CONFIRMATION", "Critical action pauses before send."],
+  ["BC-002", "Change recipient after confirmation", "REQUIRE_CONFIRMATION", "Changed digest invalidates exact confirmation."],
+  ["BC-003", "Raise payment after confirmation", "REQUIRE_CONFIRMATION", "Changed amount requires a new confirmation boundary."],
+  ["BC-004", "Change currency", "BLOCK", "Currency outside PAAC scope is blocked."],
+  ["BC-005", "Use undeclared tool", "BLOCK", "Tool not declared in PAAC is blocked."],
+  ["BC-006", "Change model/version", "BLOCK", "Agent stack mismatch is blocked."],
+  ["BC-007", "Delegate to undeclared Agent", "BLOCK", "Undeclared delegation is blocked."],
+  ["BC-008", "Execute after revocation", "BLOCK", "Revoked contract blocks execution."],
+  ["BC-009", "Reuse consumed request", "BLOCK", "Consumed request cannot be replayed."],
+  ["BC-010", "Exceed execution budget", "BLOCK", "Maximum execution count is enforced."],
+  ["BC-011", "Upload to unknown destination", "BLOCK", "Destination outside scope is blocked."],
+  ["BC-012", "Access resource outside scope", "BLOCK", "Resource boundary is enforced."],
+  ["BC-013", "Modify evidence event", "INTEGRITY_FAILURE", "Hash-chain mutation is detected."],
+  ["BC-014", "Legitimate approved action", "ALLOW", "Low-risk approved action completes."],
+  ["BC-015", "Exact confirmed action", "ALLOW_WITH_LOG", "Exact confirmed request executes with evidence."]
+];
+
+let activeScenario = scenarios[0];
+let profile = null;
+
+function decisionClass(decision) {
+  if (decision === "ALLOW") return "badge allow";
+  if (decision === "ALLOW_WITH_LOG") return "badge log";
+  if (decision === "BLOCK") return "badge block";
+  if (decision === "INTEGRITY_FAILURE") return "badge integrity";
+  return "badge confirm";
+}
+
+function renderScenarios() {
+  const grid = document.getElementById("scenarioGrid");
+  grid.innerHTML = "";
+  scenarios.forEach((scenario, index) => {
+    const button = document.createElement("button");
+    button.className = "btn scenario-button" + (index === 0 ? " active" : "");
+    button.type = "button";
+    button.innerHTML = `<strong>${scenario[0]}</strong><br>${scenario[1]}<br><span style="color:#94a3b8;">${scenario[2]}</span>`;
+    button.addEventListener("click", () => {
+      activeScenario = scenario;
+      document.querySelectorAll(".scenario-button").forEach((item) => item.classList.remove("active"));
+      button.classList.add("active");
+      updateScenario(false);
+    });
+    grid.appendChild(button);
+  });
+}
+
+function loadProfile() {
+  try {
+    profile = JSON.parse(localStorage.getItem("patlTesterProfile") || "null");
+  } catch {
+    profile = null;
+  }
+  if (profile) {
+    document.getElementById("profileStatus").textContent = `Tester profile active: ${profile.name} (${profile.type}).`;
+  }
+}
+
+function createProfile() {
+  const name = document.getElementById("testerName").value.trim();
+  const type = document.getElementById("reviewerType").value;
+  const environment = document.getElementById("environment").value.trim();
+  const reportType = document.getElementById("reportType").value;
+  const acknowledged = ["scopeCheck", "noSecretsCheck", "noAttackCheck"].every((id) => document.getElementById(id).checked);
+
+  if (!name || !environment || !acknowledged) {
+    document.getElementById("profileStatus").textContent = "Complete display name, environment and all safety acknowledgements before testing.";
+    return;
+  }
+
+  profile = {
+    name,
+    type,
+    environment,
+    reportType,
+    createdAt: new Date().toISOString(),
+    productionReadiness: "NO",
+    independentReproduction: "PENDING",
+    realFrameworkIntegration: "PENDING"
+  };
+  localStorage.setItem("patlTesterProfile", JSON.stringify(profile));
+  document.getElementById("profileStatus").textContent = `Tester profile active: ${profile.name} (${profile.type}).`;
+  updateScenario(false);
+}
+
+function updateScenario(ran) {
+  const [id, title, decision, summary] = activeScenario;
+  document.getElementById("decisionBadge").className = decisionClass(decision);
+  document.getElementById("decisionBadge").textContent = decision;
+  document.getElementById("scenarioTitle").textContent = `${id}: ${title}`;
+  document.getElementById("scenarioSummary").textContent = summary;
+  document.getElementById("expectedDecision").textContent = decision;
+  document.getElementById("observedDecision").textContent = ran ? decision : "NOT_RUN";
+  document.getElementById("evidenceMode").textContent = decision === "INTEGRITY_FAILURE" ? "hash-chain mutation check" : "digest-bound synthetic event";
+  document.getElementById("scenarioStatus").textContent = ran ? "PASS" : "READY";
+
+  if (!ran) {
+    document.getElementById("reportOutput").textContent = "Run the selected scenario to generate a report draft.";
+  }
+}
+
+function runScenario() {
+  if (!profile) {
+    document.getElementById("reportOutput").textContent = "Create a local tester profile before running a scenario.";
+    return;
+  }
+  updateScenario(true);
+  const [id, title, decision, summary] = activeScenario;
+  const report = [
+    `PATL v0.1.1 Challenge report`,
+    `Tester: ${profile.name}`,
+    `Reviewer type: ${profile.type}`,
+    `Environment: ${profile.environment}`,
+    `Report type: ${profile.reportType}`,
+    `Scenario: ${id} - ${title}`,
+    `Expected: ${decision}`,
+    `Observed: ${decision}`,
+    `Result: PASS`,
+    `Evidence mode: ${decision === "INTEGRITY_FAILURE" ? "hash-chain mutation check" : "digest-bound synthetic event"}`,
+    `Summary: ${summary}`,
+    `Independent reproduction: PENDING until submitted by an external reviewer`,
+    `Real framework integration: PENDING`,
+    `Production readiness: NO`,
+    `Safety boundary: local synthetic fixtures and mock tools only`
+  ].join("\\n");
+  document.getElementById("reportOutput").textContent = report;
+
+  const issueUrl = new URL("https://github.com/roalstoney-alt/acp-atp/issues/new/choose");
+  document.getElementById("issueLink").href = issueUrl.toString();
+}
+
+async function copyReport() {
+  const text = document.getElementById("reportOutput").textContent;
+  if (!text || text.includes("Create a local tester profile")) return;
+  try {
+    await navigator.clipboard.writeText(text);
+    document.getElementById("scenarioStatus").textContent = "COPIED";
+  } catch {
+    document.getElementById("scenarioStatus").textContent = "COPY_UNAVAILABLE";
+  }
+}
+
+document.getElementById("registerButton").addEventListener("click", createProfile);
+document.getElementById("runScenarioButton").addEventListener("click", runScenario);
+document.getElementById("copyReportButton").addEventListener("click", copyReport);
+renderScenarios();
+loadProfile();
+updateScenario(false);
+</script>
+</body>
+</html>

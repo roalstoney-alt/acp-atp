@@ -4,6 +4,14 @@ Question: Can an agent exceed its authorized methods?
 
 This challenge uses only synthetic requests, mock tools, and local fixtures. It does not scan, attack, or contact external systems.
 
+Web entry:
+
+```text
+challenge/portal.html
+```
+
+The portal creates a browser-local synthetic tester profile and prepares a structured report draft. It does not create a real user account, send data to a server, or authorize testing outside this repository.
+
 Run:
 
 ```bash

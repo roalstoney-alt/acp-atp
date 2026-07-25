@@ -13,6 +13,46 @@ body {
   color:white;
 }
 
+.top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 14px 28px;
+  background: rgba(2, 6, 23, 0.82);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  backdrop-filter: blur(14px);
+}
+
+.brand {
+  color: #f8fafc;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+.nav-links a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.nav-links a.primary-link {
+  color: #22c55e;
+  font-weight: 700;
+}
+
 /* ===== HERO ===== */
 .hero {
   position: relative;
@@ -63,6 +103,15 @@ body {
   margin-bottom: 20px;
 }
 
+.hero-kicker {
+  color: #22c55e;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
 .hero h2 {
   font-size: 24px;
   color: #cbd5f5;
@@ -87,6 +136,34 @@ body {
 .btn-secondary {
   border: 1px solid #475569;
   color: white;
+}
+
+.status-bar {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin: 28px auto 0;
+  max-width: 860px;
+}
+
+.status-item {
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.78);
+  padding: 12px;
+}
+
+.status-item span {
+  display: block;
+  color: #94a3b8;
+  font-size: 11px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.status-item strong {
+  color: #f8fafc;
+  font-size: 14px;
 }
 
 /* ===== SECTIONS ===== */
@@ -227,7 +304,11 @@ pre {
 }
 
 @media (max-width: 760px) {
+  .top-nav { position: absolute; align-items: flex-start; flex-direction: column; padding: 14px 18px; }
+  .nav-links { justify-content: flex-start; gap: 10px; }
   .hero h1 { font-size: 38px; }
+  .hero-content { top: 56%; }
+  .status-bar { grid-template-columns: 1fr 1fr; }
   .trust-shell { grid-template-columns: 1fr; }
   .decision-grid { grid-template-columns: 1fr; }
   .decision-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -237,8 +318,20 @@ pre {
 
 <body>
 
+<nav class="top-nav">
+  <a class="brand" href="#top">ACP-ATP</a>
+  <div class="nav-links">
+    <a class="primary-link" href="#patl">PATL</a>
+    <a class="primary-link" href="challenge/portal.html">Challenge Portal</a>
+    <a href="#personal-trust">Demo</a>
+    <a href="#boundary-challenge">Challenge</a>
+    <a href="REPRODUCTION.md">Reproduce</a>
+    <a href="https://github.com/roalstoney-alt/acp-atp/issues/new/choose">Issues</a>
+  </div>
+</nav>
+
 <!-- HERO -->
-<section class="hero">
+<section id="top" class="hero">
 
   <video class="hero-video" autoplay muted loop playsinline>
     <source src="demo2.mp4" type="video/mp4">
@@ -247,19 +340,61 @@ pre {
   <div class="overlay"></div>
 
   <div class="hero-content">
-    <h1>AI doesn't fail alone.</h1>
-    <h2>It fails in chains. ACP-ATP stops the chain.</h2>
+    <div class="hero-kicker">PATL v0.1.1 Boundary Challenge is open for local defensive testing</div>
+    <h1>Personal agents need explicit authority.</h1>
+    <h2>Apply as a synthetic test user, run local challenge scenarios, and report reproducible findings.</h2>
 
-    <a href="#integration" class="btn btn-primary">Integrate Now</a>
-    <a href="#demo" class="btn btn-secondary">See How It Works</a>
+    <a href="challenge/portal.html" class="btn btn-primary">Enter PATL Challenge</a>
+    <a href="#patl" class="btn btn-secondary">PATL Overview</a>
     <a href="#personal-trust" class="btn btn-secondary">Personal Agent Trust Layer</a>
     <a href="#boundary-challenge" class="btn btn-secondary">Boundary Challenge</a>
+
+    <div class="status-bar">
+      <div class="status-item"><span>Local validation</span><strong>PASS</strong></div>
+      <div class="status-item"><span>Tests</span><strong>36/36</strong></div>
+      <div class="status-item"><span>Challenge</span><strong>15/15</strong></div>
+      <div class="status-item"><span>Reproduction</span><strong>PENDING</strong></div>
+      <div class="status-item"><span>Production</span><strong>NO</strong></div>
+    </div>
   </div>
 
 </section>
 
+<!-- PATL PRIMARY ENTRY -->
+<section id="patl">
+  <div class="container">
+    <h2>PATL: Personal Agent Trust Layer</h2>
+    <p>
+      PATL constrains and verifies what a personal agent is allowed to do before protected tools run.
+      The public v0.1.1 Challenge is a synthetic, local-only test environment for PAAC contracts,
+      confirmation binding, revocation, execution budgets, stack identity checks and evidence integrity.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Register</h3>
+        <p>Create a synthetic tester profile in the browser. No account backend, no real identity and no credentials are used.</p>
+      </div>
+
+      <div class="card">
+        <h3>Test</h3>
+        <p>Select one of the 15 local boundary scenarios and compare observed PATL decisions against expected decisions.</p>
+      </div>
+
+      <div class="card">
+        <h3>Report</h3>
+        <p>Generate a structured reproduction, bypass, integration or specification feedback issue draft.</p>
+      </div>
+    </div>
+
+    <a href="challenge/portal.html" class="btn btn-primary">Register And Test</a>
+    <a href="challenge/SAFETY_BOUNDARIES.md" class="btn btn-secondary">Safety Boundaries</a>
+    <a href="SECURITY.md" class="btn btn-secondary">Responsible Disclosure</a>
+  </div>
+</section>
+
 <!-- WHAT -->
-<section>
+<section style="background:#020617;">
   <div class="container">
     <h2>A trust layer for AI agent networks</h2>
     <p>
@@ -271,7 +406,7 @@ pre {
 </section>
 
 <!-- HOW -->
-<section style="background:#020617;">
+<section>
   <div class="container">
     <h2>How ACP works</h2>
 
@@ -418,7 +553,8 @@ pre {
       payment systems, personal files, credentials or external networks.
     </p>
 
-    <a href="challenge/README.md" class="btn btn-primary">Challenge</a>
+    <a href="challenge/portal.html" class="btn btn-primary">Register And Test</a>
+    <a href="challenge/README.md" class="btn btn-secondary">Challenge Docs</a>
     <a href="REPRODUCTION.md" class="btn btn-secondary">Reproduce</a>
     <a href="docs/specs/PAAC_v0.1.md" class="btn btn-secondary">PAAC Spec</a>
     <a href="research/rdi/EVIDENCE_LEDGER.csv" class="btn btn-secondary">Evidence</a>
