@@ -53,6 +53,29 @@ body {
   font-weight: 700;
 }
 
+.language-toggle {
+  display: inline-flex;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.language-toggle button {
+  border: 0;
+  background: transparent;
+  color: #cbd5e1;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  padding: 7px 10px;
+}
+
+.language-toggle button.active {
+  background: #22c55e;
+  color: #020617;
+  font-weight: 800;
+}
+
 /* ===== HERO ===== */
 .hero {
   position: relative;
@@ -322,11 +345,15 @@ pre {
   <a class="brand" href="#top">ACP-ATP</a>
   <div class="nav-links">
     <a class="primary-link" href="#patl">PATL</a>
-    <a class="primary-link" href="challenge/portal.html">Challenge Portal</a>
-    <a href="#personal-trust">Demo</a>
-    <a href="#boundary-challenge">Challenge</a>
-    <a href="REPRODUCTION.md">Reproduce</a>
-    <a href="https://github.com/roalstoney-alt/acp-atp/issues/new/choose">Issues</a>
+    <a class="primary-link" href="challenge/portal.html" data-i18n="nav.portal">Challenge Portal</a>
+    <a href="#personal-trust" data-i18n="nav.demo">Demo</a>
+    <a href="#boundary-challenge" data-i18n="nav.challenge">Challenge</a>
+    <a href="REPRODUCTION.md" data-i18n="nav.reproduce">Reproduce</a>
+    <a href="https://github.com/roalstoney-alt/acp-atp/issues/new/choose" data-i18n="nav.issues">Issues</a>
+    <div class="language-toggle" aria-label="Language">
+      <button type="button" data-lang-button="en">EN</button>
+      <button type="button" data-lang-button="zh">中文</button>
+    </div>
   </div>
 </nav>
 
@@ -340,21 +367,21 @@ pre {
   <div class="overlay"></div>
 
   <div class="hero-content">
-    <div class="hero-kicker">PATL v0.1.1 Boundary Challenge is open for local defensive testing</div>
-    <h1>Personal agents need explicit authority.</h1>
-    <h2>Apply as a synthetic test user, run local challenge scenarios, and report reproducible findings.</h2>
+    <div class="hero-kicker" data-i18n="hero.kicker">PATL v0.1.1 Boundary Challenge is open for local defensive testing</div>
+    <h1 data-i18n="hero.title">Personal agents need explicit authority.</h1>
+    <h2 data-i18n="hero.subtitle">Apply as a synthetic test user, run local challenge scenarios, and report reproducible findings.</h2>
 
-    <a href="challenge/portal.html" class="btn btn-primary">Enter PATL Challenge</a>
-    <a href="#patl" class="btn btn-secondary">PATL Overview</a>
-    <a href="#personal-trust" class="btn btn-secondary">Personal Agent Trust Layer</a>
-    <a href="#boundary-challenge" class="btn btn-secondary">Boundary Challenge</a>
+    <a href="challenge/portal.html" class="btn btn-primary" data-i18n="hero.enter">Enter PATL Challenge</a>
+    <a href="#patl" class="btn btn-secondary" data-i18n="hero.overview">PATL Overview</a>
+    <a href="#personal-trust" class="btn btn-secondary" data-i18n="hero.demo">Personal Agent Trust Layer</a>
+    <a href="#boundary-challenge" class="btn btn-secondary" data-i18n="hero.boundary">Boundary Challenge</a>
 
     <div class="status-bar">
-      <div class="status-item"><span>Local validation</span><strong>PASS</strong></div>
-      <div class="status-item"><span>Tests</span><strong>36/36</strong></div>
-      <div class="status-item"><span>Challenge</span><strong>15/15</strong></div>
-      <div class="status-item"><span>Reproduction</span><strong>PENDING</strong></div>
-      <div class="status-item"><span>Production</span><strong>NO</strong></div>
+      <div class="status-item"><span data-i18n="status.local">Local validation</span><strong>PASS</strong></div>
+      <div class="status-item"><span data-i18n="status.tests">Tests</span><strong>36/36</strong></div>
+      <div class="status-item"><span data-i18n="status.challenge">Challenge</span><strong>15/15</strong></div>
+      <div class="status-item"><span data-i18n="status.reproduction">Reproduction</span><strong>PENDING</strong></div>
+      <div class="status-item"><span data-i18n="status.production">Production</span><strong>NO</strong></div>
     </div>
   </div>
 
@@ -364,7 +391,7 @@ pre {
 <section id="patl">
   <div class="container">
     <h2>PATL: Personal Agent Trust Layer</h2>
-    <p>
+    <p data-i18n="patl.body">
       PATL constrains and verifies what a personal agent is allowed to do before protected tools run.
       The public v0.1.1 Challenge is a synthetic, local-only test environment for PAAC contracts,
       confirmation binding, revocation, execution budgets, stack identity checks and evidence integrity.
@@ -372,24 +399,24 @@ pre {
 
     <div class="cards">
       <div class="card">
-        <h3>Register</h3>
-        <p>Create a synthetic tester profile in the browser. No account backend, no real identity and no credentials are used.</p>
+        <h3 data-i18n="patl.register.title">Register</h3>
+        <p data-i18n="patl.register.body">Create a synthetic tester profile in the browser. No account backend, no real identity and no credentials are used.</p>
       </div>
 
       <div class="card">
-        <h3>Test</h3>
-        <p>Select one of the 15 local boundary scenarios and compare observed PATL decisions against expected decisions.</p>
+        <h3 data-i18n="patl.test.title">Test</h3>
+        <p data-i18n="patl.test.body">Select one of the 15 local boundary scenarios and compare observed PATL decisions against expected decisions.</p>
       </div>
 
       <div class="card">
-        <h3>Report</h3>
-        <p>Generate a structured reproduction, bypass, integration or specification feedback issue draft.</p>
+        <h3 data-i18n="patl.report.title">Report</h3>
+        <p data-i18n="patl.report.body">Generate a structured reproduction, bypass, integration or specification feedback issue draft.</p>
       </div>
     </div>
 
-    <a href="challenge/portal.html" class="btn btn-primary">Register And Test</a>
-    <a href="challenge/SAFETY_BOUNDARIES.md" class="btn btn-secondary">Safety Boundaries</a>
-    <a href="SECURITY.md" class="btn btn-secondary">Responsible Disclosure</a>
+    <a href="challenge/portal.html" class="btn btn-primary" data-i18n="patl.cta">Register And Test</a>
+    <a href="challenge/SAFETY_BOUNDARIES.md" class="btn btn-secondary" data-i18n="patl.safety">Safety Boundaries</a>
+    <a href="SECURITY.md" class="btn btn-secondary" data-i18n="patl.disclosure">Responsible Disclosure</a>
   </div>
 </section>
 
@@ -470,8 +497,8 @@ pre {
 <!-- PERSONAL AGENT TRUST LAYER -->
 <section id="personal-trust">
   <div class="container">
-    <h2>Personal Agent Trust Layer</h2>
-    <p>
+    <h2 data-i18n="demo.title">Personal Agent Trust Layer</h2>
+    <p data-i18n="demo.body">
       ACP-ATP now includes a local v0.1.1 authorization layer for personal AI agents.
       PAAC contracts bind agent stack, tools, parameters, lifecycle state and evidence while
       the gateway returns deterministic decisions: allow, log, require confirmation, or block.
@@ -486,9 +513,9 @@ pre {
 
     <div class="trust-shell">
       <div class="scenario-list">
-        <button class="scenario-button active" onclick="runTrustDemo('email', this)">Email send</button>
-        <button class="scenario-button" onclick="runTrustDemo('travel', this)">Travel purchase</button>
-        <button class="scenario-button" onclick="runTrustDemo('files', this)">File management</button>
+        <button class="scenario-button active" onclick="runTrustDemo('email', this)" data-trust-button="email">Email send</button>
+        <button class="scenario-button" onclick="runTrustDemo('travel', this)" data-trust-button="travel">Travel purchase</button>
+        <button class="scenario-button" onclick="runTrustDemo('files', this)" data-trust-button="files">File management</button>
       </div>
 
       <div class="decision-panel">
@@ -500,19 +527,19 @@ pre {
 
         <div class="decision-grid">
           <div class="decision-cell">
-            <span>PAAC Scope</span>
+            <span data-i18n="demo.scope">PAAC Scope</span>
             <div id="trustScope">recipients: example.com; actions: draft, send</div>
           </div>
           <div class="decision-cell">
-            <span>Lifecycle</span>
+            <span data-i18n="demo.lifecycle">Lifecycle</span>
             <div id="trustLifecycle">PENDING -> AWAITING_CONFIRMATION</div>
           </div>
           <div class="decision-cell">
-            <span>Blocked Boundary</span>
+            <span data-i18n="demo.blocked">Blocked Boundary</span>
             <div id="trustBoundary">unapproved recipients and silent send</div>
           </div>
           <div class="decision-cell">
-            <span>Evidence</span>
+            <span data-i18n="demo.evidence">Evidence</span>
             <div id="trustEvidence">digest-bound, hash-chained</div>
           </div>
         </div>
@@ -525,42 +552,42 @@ pre {
 <section id="boundary-challenge" style="background:#020617;">
   <div class="container">
     <h2>PATL Boundary Challenge v0.1.1</h2>
-    <p>
+    <p data-i18n="challenge.body">
       A local, defensive challenge for testing whether an agent can exceed its authorized methods.
       The package uses only synthetic data, mock tools and local fixtures.
     </p>
 
     <div class="cards">
       <div class="card">
-        <h3>Local validation</h3>
-        <p>PASS<br>Automated tests: 36/36 or verified updated count</p>
+        <h3 data-i18n="challenge.local.title">Local validation</h3>
+        <p data-i18n="challenge.local.body">PASS<br>Automated tests: 36/36 or verified updated count</p>
       </div>
 
       <div class="card">
-        <h3>Challenge</h3>
-        <p>15/15 scenarios passed<br>Independent reproduction: PENDING</p>
+        <h3 data-i18n="challenge.status.title">Challenge</h3>
+        <p data-i18n="challenge.status.body">15/15 scenarios passed<br>Independent reproduction: PENDING</p>
       </div>
 
       <div class="card">
-        <h3>Release status</h3>
-        <p>Real framework integration: PENDING<br>Production readiness: NO</p>
+        <h3 data-i18n="challenge.release.title">Release status</h3>
+        <p data-i18n="challenge.release.body">Real framework integration: PENDING<br>Production readiness: NO</p>
       </div>
     </div>
 
-    <p>
+    <p data-i18n="challenge.scope">
       Authorized scope: local synthetic testing only. This does not authorize attacks against
       ACP-ATP infrastructure, GitHub, third-party systems, real accounts, production services,
       payment systems, personal files, credentials or external networks.
     </p>
 
-    <a href="challenge/portal.html" class="btn btn-primary">Register And Test</a>
-    <a href="challenge/README.md" class="btn btn-secondary">Challenge Docs</a>
-    <a href="REPRODUCTION.md" class="btn btn-secondary">Reproduce</a>
-    <a href="docs/specs/PAAC_v0.1.md" class="btn btn-secondary">PAAC Spec</a>
-    <a href="research/rdi/EVIDENCE_LEDGER.csv" class="btn btn-secondary">Evidence</a>
+    <a href="challenge/portal.html" class="btn btn-primary" data-i18n="patl.cta">Register And Test</a>
+    <a href="challenge/README.md" class="btn btn-secondary" data-i18n="nav.docs">Challenge Docs</a>
+    <a href="REPRODUCTION.md" class="btn btn-secondary" data-i18n="nav.reproduce">Reproduce</a>
+    <a href="docs/specs/PAAC_v0.1.md" class="btn btn-secondary" data-i18n="challenge.spec">PAAC Spec</a>
+    <a href="research/rdi/EVIDENCE_LEDGER.csv" class="btn btn-secondary" data-i18n="challenge.evidence">Evidence</a>
     <a href="research/rdi/EML_LEDGER.csv" class="btn btn-secondary">EML</a>
-    <a href="https://github.com/roalstoney-alt/acp-atp/issues/new/choose" class="btn btn-secondary">Issues</a>
-    <a href="SECURITY.md" class="btn btn-secondary">Disclosure</a>
+    <a href="https://github.com/roalstoney-alt/acp-atp/issues/new/choose" class="btn btn-secondary" data-i18n="nav.issues">Issues</a>
+    <a href="SECURITY.md" class="btn btn-secondary" data-i18n="nav.disclosure">Disclosure</a>
   </div>
 </section>
 
@@ -631,53 +658,182 @@ POST /v1/execute
 </section>
 
 <script>
+const uiText = {
+  en: {
+    "nav.portal": "Challenge Portal",
+    "nav.demo": "Demo",
+    "nav.challenge": "Challenge",
+    "nav.reproduce": "Reproduce",
+    "nav.issues": "Issues",
+    "nav.docs": "Challenge Docs",
+    "nav.disclosure": "Disclosure",
+    "hero.kicker": "PATL v0.1.1 Boundary Challenge is open for local defensive testing",
+    "hero.title": "Personal agents need explicit authority.",
+    "hero.subtitle": "Apply as a synthetic test user, run local challenge scenarios, and report reproducible findings.",
+    "hero.enter": "Enter PATL Challenge",
+    "hero.overview": "PATL Overview",
+    "hero.demo": "Personal Agent Trust Layer",
+    "hero.boundary": "Boundary Challenge",
+    "status.local": "Local validation",
+    "status.tests": "Tests",
+    "status.challenge": "Challenge",
+    "status.reproduction": "Reproduction",
+    "status.production": "Production",
+    "patl.body": "PATL constrains and verifies what a personal agent is allowed to do before protected tools run. The public v0.1.1 Challenge is a synthetic, local-only test environment for PAAC contracts, confirmation binding, revocation, execution budgets, stack identity checks and evidence integrity.",
+    "patl.register.title": "Register",
+    "patl.register.body": "Create a synthetic tester profile in the browser. No account backend, no real identity and no credentials are used.",
+    "patl.test.title": "Test",
+    "patl.test.body": "Select one of the 15 local boundary scenarios and compare observed PATL decisions against expected decisions.",
+    "patl.report.title": "Report",
+    "patl.report.body": "Generate a structured reproduction, bypass, integration or specification feedback issue draft.",
+    "patl.cta": "Register And Test",
+    "patl.safety": "Safety Boundaries",
+    "patl.disclosure": "Responsible Disclosure",
+    "demo.title": "Personal Agent Trust Layer",
+    "demo.body": "ACP-ATP now includes a local v0.1.1 authorization layer for personal AI agents. PAAC contracts bind agent stack, tools, parameters, lifecycle state and evidence while the gateway returns deterministic decisions: allow, log, require confirmation, or block.",
+    "demo.scope": "PAAC Scope",
+    "demo.lifecycle": "Lifecycle",
+    "demo.blocked": "Blocked Boundary",
+    "demo.evidence": "Evidence",
+    "challenge.body": "A local, defensive challenge for testing whether an agent can exceed its authorized methods. The package uses only synthetic data, mock tools and local fixtures.",
+    "challenge.local.title": "Local validation",
+    "challenge.local.body": "PASS<br>Automated tests: 36/36 or verified updated count",
+    "challenge.status.title": "Challenge",
+    "challenge.status.body": "15/15 scenarios passed<br>Independent reproduction: PENDING",
+    "challenge.release.title": "Release status",
+    "challenge.release.body": "Real framework integration: PENDING<br>Production readiness: NO",
+    "challenge.scope": "Authorized scope: local synthetic testing only. This does not authorize attacks against ACP-ATP infrastructure, GitHub, third-party systems, real accounts, production services, payment systems, personal files, credentials or external networks.",
+    "challenge.spec": "PAAC Spec",
+    "challenge.evidence": "Evidence"
+  },
+  zh: {
+    "nav.portal": "挑战入口",
+    "nav.demo": "演示",
+    "nav.challenge": "边界挑战",
+    "nav.reproduce": "复现",
+    "nav.issues": "提交 Issue",
+    "nav.docs": "挑战文档",
+    "nav.disclosure": "披露流程",
+    "hero.kicker": "PATL v0.1.1 边界挑战开放本地防御性测试",
+    "hero.title": "个人智能体必须拥有明确授权。",
+    "hero.subtitle": "申请成为合成测试用户，运行本地挑战场景，并提交可复现发现。",
+    "hero.enter": "进入 PATL 挑战",
+    "hero.overview": "PATL 概览",
+    "hero.demo": "个人智能体信任层",
+    "hero.boundary": "边界挑战",
+    "status.local": "本地验证",
+    "status.tests": "自动测试",
+    "status.challenge": "挑战场景",
+    "status.reproduction": "独立复现",
+    "status.production": "生产就绪",
+    "patl.body": "PATL 在受保护工具执行前约束并验证个人智能体被允许执行的操作。公开 v0.1.1 Challenge 是一个仅限本地、合成数据的测试环境，用于验证 PAAC 合约、确认绑定、撤销、执行预算、栈身份检查和证据完整性。",
+    "patl.register.title": "注册",
+    "patl.register.body": "在浏览器中创建合成测试者档案。不使用账号后端、真实身份或凭据。",
+    "patl.test.title": "测试",
+    "patl.test.body": "选择 15 个本地边界场景之一，将观测到的 PATL 决策与预期决策进行比较。",
+    "patl.report.title": "报告",
+    "patl.report.body": "生成结构化的复现、授权绕过、集成报告或规格反馈 Issue 草稿。",
+    "patl.cta": "注册并测试",
+    "patl.safety": "安全边界",
+    "patl.disclosure": "负责任披露",
+    "demo.title": "个人智能体信任层",
+    "demo.body": "ACP-ATP 现在包含本地 v0.1.1 个人 AI 智能体授权层。PAAC 合约绑定智能体栈、工具、参数、生命周期状态和证据，网关返回确定性决策：允许、记录、需要确认或阻止。",
+    "demo.scope": "PAAC 范围",
+    "demo.lifecycle": "生命周期",
+    "demo.blocked": "被阻止边界",
+    "demo.evidence": "证据",
+    "challenge.body": "一个本地防御性挑战，用于测试智能体是否能超出已授权方法。该包仅使用合成数据、模拟工具和本地夹具。",
+    "challenge.local.title": "本地验证",
+    "challenge.local.body": "PASS<br>自动测试：36/36 或已验证的更新计数",
+    "challenge.status.title": "挑战",
+    "challenge.status.body": "15/15 个场景通过<br>独立复现：PENDING",
+    "challenge.release.title": "发布状态",
+    "challenge.release.body": "真实框架集成：PENDING<br>生产就绪：NO",
+    "challenge.scope": "授权范围：仅允许本地合成测试。这不授权针对 ACP-ATP 基础设施、GitHub、第三方系统、真实账号、生产服务、支付系统、个人文件、凭据或外部网络的攻击。",
+    "challenge.spec": "PAAC 规格",
+    "challenge.evidence": "证据"
+  }
+};
+
+let currentLanguage = localStorage.getItem("patlLanguage") || "en";
+let activeTrustKey = "email";
+
 const trustScenarios = {
   email: {
     badge: "REQUIRE_CONFIRMATION",
     className: "decision-badge confirm",
-    title: "Draft allowed. Send requires user confirmation.",
-    summary: "The agent may draft to an approved recipient, but sending the email is a critical action and cannot depend solely on model judgment.",
-    scope: "recipients: example.com; actions: draft, send",
+    button: { en: "Email send", zh: "发送邮件" },
+    title: { en: "Draft allowed. Send requires user confirmation.", zh: "允许起草。发送前必须由用户确认。" },
+    summary: { en: "The agent may draft to an approved recipient, but sending the email is a critical action and cannot depend solely on model judgment.", zh: "智能体可以向已批准收件人起草邮件，但发送邮件属于关键动作，不能只依赖模型判断。" },
+    scope: { en: "recipients: example.com; actions: draft, send", zh: "收件人：example.com；动作：起草、发送" },
     lifecycle: "PENDING -> AWAITING_CONFIRMATION",
-    evidence: "request digest + ledger hash",
-    boundary: "unapproved recipients and silent send"
+    evidence: { en: "request digest + ledger hash", zh: "请求摘要 + 账本哈希" },
+    boundary: { en: "unapproved recipients and silent send", zh: "未批准收件人和静默发送" }
   },
   travel: {
     badge: "BLOCK",
     className: "decision-badge block",
-    title: "Payment above limit is blocked.",
-    summary: "The travel agent may search and reserve, but a purchase above the PAAC limit is deterministically blocked.",
-    scope: "currency: USD; max payment: 500; actions: search, reserve, purchase",
+    button: { en: "Travel purchase", zh: "旅行购买" },
+    title: { en: "Payment above limit is blocked.", zh: "超出限额的付款会被阻止。" },
+    summary: { en: "The travel agent may search and reserve, but a purchase above the PAAC limit is deterministically blocked.", zh: "旅行智能体可以搜索和预订，但超出 PAAC 限额的购买会被确定性阻止。" },
+    scope: { en: "currency: USD; max payment: 500; actions: search, reserve, purchase", zh: "币种：USD；最高付款：500；动作：搜索、预订、购买" },
     lifecycle: "PENDING -> BLOCKED",
-    evidence: "limit violation + ledger hash",
-    boundary: "payment above limit, wrong currency, saved payment credential"
+    evidence: { en: "limit violation + ledger hash", zh: "限额违规 + 账本哈希" },
+    boundary: { en: "payment above limit, wrong currency, saved payment credential", zh: "超限付款、错误币种、已保存支付凭据" }
   },
   files: {
     badge: "BLOCK",
     className: "decision-badge block",
-    title: "Deletion and upload are blocked.",
-    summary: "The file agent may list, rename, and move inside the scoped demo folder. Delete and upload are denied in the contract.",
-    scope: "path: /workspace/demo; actions: list, move, rename",
+    button: { en: "File management", zh: "文件管理" },
+    title: { en: "Deletion and upload are blocked.", zh: "删除和上传会被阻止。" },
+    summary: { en: "The file agent may list, rename, and move inside the scoped demo folder. Delete and upload are denied in the contract.", zh: "文件智能体可以在限定的演示文件夹内列出、重命名和移动文件。删除和上传在合约中被拒绝。" },
+    scope: { en: "path: /workspace/demo; actions: list, move, rename", zh: "路径：/workspace/demo；动作：列出、移动、重命名" },
     lifecycle: "PENDING -> BLOCKED",
-    evidence: "prohibited action + ledger hash",
-    boundary: "delete, upload, path escape"
+    evidence: { en: "prohibited action + ledger hash", zh: "禁止动作 + 账本哈希" },
+    boundary: { en: "delete, upload, path escape", zh: "删除、上传、路径逃逸" }
   }
 };
 
 function runTrustDemo(key, button) {
+  activeTrustKey = key;
   const scenario = trustScenarios[key];
   document.querySelectorAll(".scenario-button").forEach((item) => item.classList.remove("active"));
   button.classList.add("active");
   const badge = document.getElementById("trustDecision");
   badge.className = scenario.className;
   badge.textContent = scenario.badge;
-  document.getElementById("trustTitle").textContent = scenario.title;
-  document.getElementById("trustSummary").textContent = scenario.summary;
-  document.getElementById("trustScope").textContent = scenario.scope;
+  document.getElementById("trustTitle").textContent = scenario.title[currentLanguage];
+  document.getElementById("trustSummary").textContent = scenario.summary[currentLanguage];
+  document.getElementById("trustScope").textContent = scenario.scope[currentLanguage];
   document.getElementById("trustLifecycle").textContent = scenario.lifecycle;
-  document.getElementById("trustEvidence").textContent = scenario.evidence;
-  document.getElementById("trustBoundary").textContent = scenario.boundary;
+  document.getElementById("trustEvidence").textContent = scenario.evidence[currentLanguage];
+  document.getElementById("trustBoundary").textContent = scenario.boundary[currentLanguage];
 }
+
+function setLanguage(language) {
+  currentLanguage = language;
+  localStorage.setItem("patlLanguage", language);
+  document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
+  document.querySelectorAll("[data-i18n]").forEach((node) => {
+    const value = uiText[language][node.dataset.i18n];
+    if (value) node.innerHTML = value;
+  });
+  document.querySelectorAll("[data-lang-button]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.langButton === language);
+  });
+  Object.entries(trustScenarios).forEach(([key, scenario]) => {
+    const button = document.querySelector(`[data-trust-button="${key}"]`);
+    if (button) button.textContent = scenario.button[language];
+  });
+  const activeButton = document.querySelector(`[data-trust-button="${activeTrustKey}"]`);
+  if (activeButton) runTrustDemo(activeTrustKey, activeButton);
+}
+
+document.querySelectorAll("[data-lang-button]").forEach((button) => {
+  button.addEventListener("click", () => setLanguage(button.dataset.langButton));
+});
+
+setLanguage(currentLanguage);
 </script>
 
 </body>

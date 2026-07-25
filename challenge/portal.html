@@ -42,6 +42,29 @@ a { color: inherit; }
   text-decoration: none;
 }
 
+.language-toggle {
+  display: inline-flex;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.language-toggle button {
+  border: 0;
+  background: transparent;
+  color: #cbd5e1;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  padding: 7px 10px;
+}
+
+.language-toggle button.active {
+  background: #22c55e;
+  color: #020617;
+  font-weight: 800;
+}
+
 .shell {
   max-width: 1180px;
   margin: 0 auto;
@@ -272,82 +295,86 @@ pre {
   <a class="brand" href="../index.html">ACP-ATP / PATL</a>
   <div class="nav-links">
     <a href="../index.html#patl">PATL</a>
-    <a href="../index.html#personal-trust">Demo</a>
-    <a href="README.md">Challenge Docs</a>
-    <a href="../REPRODUCTION.md">Reproduce</a>
-    <a href="../SECURITY.md">Disclosure</a>
-    <a href="https://github.com/roalstoney-alt/acp-atp/issues/new/choose">Issues</a>
+    <a href="../index.html#personal-trust" data-i18n="nav.demo">Demo</a>
+    <a href="README.md" data-i18n="nav.docs">Challenge Docs</a>
+    <a href="../REPRODUCTION.md" data-i18n="nav.reproduce">Reproduce</a>
+    <a href="../SECURITY.md" data-i18n="nav.disclosure">Disclosure</a>
+    <a href="https://github.com/roalstoney-alt/acp-atp/issues/new/choose" data-i18n="nav.issues">Issues</a>
+    <div class="language-toggle" aria-label="Language">
+      <button type="button" data-lang-button="en">EN</button>
+      <button type="button" data-lang-button="zh">中文</button>
+    </div>
   </div>
 </nav>
 
 <main class="shell">
   <section class="hero">
     <div>
-      <div class="kicker">PATL v0.1.1 Challenge Portal</div>
-      <h1>Register as a synthetic tester and run local authorization challenges.</h1>
-      <p>
+      <div class="kicker" data-i18n="hero.kicker">PATL v0.1.1 Challenge Portal</div>
+      <h1 data-i18n="hero.title">Register as a synthetic tester and run local authorization challenges.</h1>
+      <p data-i18n="hero.body">
         This portal creates a browser-local tester profile, confirms the safety boundary,
         runs mock PATL decisions for the 15 Boundary Challenge scenarios, and prepares an
         issue draft for reproduction, bypass, integration or specification feedback.
       </p>
-      <p>
+      <p data-i18n="hero.warning">
         It does not create a real account, store server-side data, connect to production services,
         or authorize testing against real systems.
       </p>
 
       <div class="status-grid">
-        <div class="status-item"><span>Local validation</span><strong>PASS</strong></div>
-        <div class="status-item"><span>Tests</span><strong>36/36</strong></div>
-        <div class="status-item"><span>Challenge</span><strong>15/15</strong></div>
-        <div class="status-item"><span>Reproduction</span><strong>PENDING</strong></div>
-        <div class="status-item"><span>Integration</span><strong>PENDING</strong></div>
-        <div class="status-item"><span>Production</span><strong>NO</strong></div>
+        <div class="status-item"><span data-i18n="status.local">Local validation</span><strong>PASS</strong></div>
+        <div class="status-item"><span data-i18n="status.tests">Tests</span><strong>36/36</strong></div>
+        <div class="status-item"><span data-i18n="status.challenge">Challenge</span><strong>15/15</strong></div>
+        <div class="status-item"><span data-i18n="status.reproduction">Reproduction</span><strong>PENDING</strong></div>
+        <div class="status-item"><span data-i18n="status.integration">Integration</span><strong>PENDING</strong></div>
+        <div class="status-item"><span data-i18n="status.production">Production</span><strong>NO</strong></div>
       </div>
     </div>
 
     <aside class="panel">
-      <h2>Authorized Scope</h2>
-      <p>Allowed: local synthetic fixtures, mock tools, deterministic challenge scenarios, secret-free logs.</p>
-      <p>Not allowed: ACP-ATP infrastructure, GitHub attacks, third-party systems, real accounts, production services, payment systems, personal files, credentials or external networks.</p>
-      <a class="btn btn-primary" href="#register">Apply To Test</a>
-      <a class="btn" href="SAFETY_BOUNDARIES.md">Safety Boundaries</a>
+      <h2 data-i18n="scope.title">Authorized Scope</h2>
+      <p data-i18n="scope.allowed">Allowed: local synthetic fixtures, mock tools, deterministic challenge scenarios, secret-free logs.</p>
+      <p data-i18n="scope.denied">Not allowed: ACP-ATP infrastructure, GitHub attacks, third-party systems, real accounts, production services, payment systems, personal files, credentials or external networks.</p>
+      <a class="btn btn-primary" href="#register" data-i18n="scope.apply">Apply To Test</a>
+      <a class="btn" href="SAFETY_BOUNDARIES.md" data-i18n="scope.safety">Safety Boundaries</a>
     </aside>
   </section>
 
   <section id="register" class="section panel">
-    <h2>Tester Application</h2>
-    <p>This is a synthetic local registration used to populate challenge reports. It is stored only in this browser.</p>
+    <h2 data-i18n="register.title">Tester Application</h2>
+    <p data-i18n="register.body">This is a synthetic local registration used to populate challenge reports. It is stored only in this browser.</p>
 
     <div class="form-grid">
       <label>
-        <span>Display name</span>
-        <input id="testerName" autocomplete="name" placeholder="Example: local reviewer">
+        <span data-i18n="register.name">Display name</span>
+        <input id="testerName" autocomplete="name" placeholder="Example: local reviewer" data-i18n-placeholder="register.namePlaceholder">
       </label>
 
       <label>
-        <span>Reviewer type</span>
+        <span data-i18n="register.reviewerType">Reviewer type</span>
         <select id="reviewerType">
-          <option>Independent agent developer</option>
-          <option>Cybersecurity engineer</option>
-          <option>Mobile security engineer</option>
-          <option>Identity / authorization specialist</option>
-          <option>Privacy engineer</option>
-          <option>Academic security researcher</option>
+          <option value="Independent agent developer" data-i18n="reviewer.agent">Independent agent developer</option>
+          <option value="Cybersecurity engineer" data-i18n="reviewer.security">Cybersecurity engineer</option>
+          <option value="Mobile security engineer" data-i18n="reviewer.mobile">Mobile security engineer</option>
+          <option value="Identity / authorization specialist" data-i18n="reviewer.identity">Identity / authorization specialist</option>
+          <option value="Privacy engineer" data-i18n="reviewer.privacy">Privacy engineer</option>
+          <option value="Academic security researcher" data-i18n="reviewer.academic">Academic security researcher</option>
         </select>
       </label>
 
       <label>
-        <span>Environment</span>
-        <input id="environment" placeholder="Example: macOS, Python 3.11, local browser">
+        <span data-i18n="register.environment">Environment</span>
+        <input id="environment" placeholder="Example: macOS, Python 3.11, local browser" data-i18n-placeholder="register.environmentPlaceholder">
       </label>
 
       <label>
-        <span>Intended report</span>
+        <span data-i18n="register.reportType">Intended report</span>
         <select id="reportType">
-          <option>Reproduction result</option>
-          <option>Authorization bypass</option>
-          <option>Integration report</option>
-          <option>Specification feedback</option>
+          <option value="Reproduction result" data-i18n="report.reproduction">Reproduction result</option>
+          <option value="Authorization bypass" data-i18n="report.bypass">Authorization bypass</option>
+          <option value="Integration report" data-i18n="report.integration">Integration report</option>
+          <option value="Specification feedback" data-i18n="report.feedback">Specification feedback</option>
         </select>
       </label>
     </div>
@@ -355,25 +382,25 @@ pre {
     <div class="checks">
       <label class="check-row">
         <input id="scopeCheck" type="checkbox">
-        <span>I will test only local synthetic fixtures and mock tools.</span>
+        <span data-i18n="checks.scope">I will test only local synthetic fixtures and mock tools.</span>
       </label>
       <label class="check-row">
         <input id="noSecretsCheck" type="checkbox">
-        <span>I will not submit real credentials, personal data, production logs or live target details.</span>
+        <span data-i18n="checks.secrets">I will not submit real credentials, personal data, production logs or live target details.</span>
       </label>
       <label class="check-row">
         <input id="noAttackCheck" type="checkbox">
-        <span>I understand this challenge does not authorize attacks against third-party systems or production services.</span>
+        <span data-i18n="checks.attack">I understand this challenge does not authorize attacks against third-party systems or production services.</span>
       </label>
     </div>
 
-    <button id="registerButton" class="btn btn-primary" type="button">Create Local Tester Profile</button>
-    <div id="profileStatus" class="notice">No tester profile created yet.</div>
+    <button id="registerButton" class="btn btn-primary" type="button" data-i18n="register.create">Create Local Tester Profile</button>
+    <div id="profileStatus" class="notice" data-dynamic="profile">No tester profile created yet.</div>
   </section>
 
   <section class="section">
-    <h2>Run A Challenge Scenario</h2>
-    <p>Select a scenario after creating a local tester profile. The result is deterministic and synthetic.</p>
+    <h2 data-i18n="run.title">Run A Challenge Scenario</h2>
+    <p data-i18n="run.body">Select a scenario after creating a local tester profile. The result is deterministic and synthetic.</p>
 
     <div id="scenarioGrid" class="scenario-grid"></div>
 
@@ -384,53 +411,180 @@ pre {
 
       <div class="decision-grid">
         <div class="card">
-          <span class="small-label">Expected</span>
+          <span class="small-label" data-i18n="decision.expected">Expected</span>
           <strong id="expectedDecision">REQUIRE_CONFIRMATION</strong>
         </div>
         <div class="card">
-          <span class="small-label">Observed</span>
+          <span class="small-label" data-i18n="decision.observed">Observed</span>
           <strong id="observedDecision">REQUIRE_CONFIRMATION</strong>
         </div>
         <div class="card">
-          <span class="small-label">Evidence</span>
+          <span class="small-label" data-i18n="decision.evidence">Evidence</span>
           <strong id="evidenceMode">digest-bound synthetic event</strong>
         </div>
         <div class="card">
-          <span class="small-label">Status</span>
+          <span class="small-label" data-i18n="decision.status">Status</span>
           <strong id="scenarioStatus">PASS</strong>
         </div>
       </div>
 
-      <button id="runScenarioButton" class="btn btn-primary" type="button">Run Selected Scenario</button>
-      <button id="copyReportButton" class="btn" type="button">Copy Report Text</button>
-      <a id="issueLink" class="btn" href="https://github.com/roalstoney-alt/acp-atp/issues/new/choose">Open Issue Templates</a>
+      <button id="runScenarioButton" class="btn btn-primary" type="button" data-i18n="run.button">Run Selected Scenario</button>
+      <button id="copyReportButton" class="btn" type="button" data-i18n="run.copy">Copy Report Text</button>
+      <a id="issueLink" class="btn" href="https://github.com/roalstoney-alt/acp-atp/issues/new/choose" data-i18n="run.issue">Open Issue Templates</a>
 
-      <pre id="reportOutput">Create a local tester profile, select a scenario, then run the challenge.</pre>
+      <pre id="reportOutput" data-dynamic="report">Create a local tester profile, select a scenario, then run the challenge.</pre>
     </div>
   </section>
 </main>
 
 <script>
+const uiText = {
+  en: {
+    "nav.demo": "Demo",
+    "nav.docs": "Challenge Docs",
+    "nav.reproduce": "Reproduce",
+    "nav.disclosure": "Disclosure",
+    "nav.issues": "Issues",
+    "hero.kicker": "PATL v0.1.1 Challenge Portal",
+    "hero.title": "Register as a synthetic tester and run local authorization challenges.",
+    "hero.body": "This portal creates a browser-local tester profile, confirms the safety boundary, runs mock PATL decisions for the 15 Boundary Challenge scenarios, and prepares an issue draft for reproduction, bypass, integration or specification feedback.",
+    "hero.warning": "It does not create a real account, store server-side data, connect to production services, or authorize testing against real systems.",
+    "status.local": "Local validation",
+    "status.tests": "Tests",
+    "status.challenge": "Challenge",
+    "status.reproduction": "Reproduction",
+    "status.integration": "Integration",
+    "status.production": "Production",
+    "scope.title": "Authorized Scope",
+    "scope.allowed": "Allowed: local synthetic fixtures, mock tools, deterministic challenge scenarios, secret-free logs.",
+    "scope.denied": "Not allowed: ACP-ATP infrastructure, GitHub attacks, third-party systems, real accounts, production services, payment systems, personal files, credentials or external networks.",
+    "scope.apply": "Apply To Test",
+    "scope.safety": "Safety Boundaries",
+    "register.title": "Tester Application",
+    "register.body": "This is a synthetic local registration used to populate challenge reports. It is stored only in this browser.",
+    "register.name": "Display name",
+    "register.namePlaceholder": "Example: local reviewer",
+    "register.reviewerType": "Reviewer type",
+    "register.environment": "Environment",
+    "register.environmentPlaceholder": "Example: macOS, Python 3.11, local browser",
+    "register.reportType": "Intended report",
+    "register.create": "Create Local Tester Profile",
+    "reviewer.agent": "Independent agent developer",
+    "reviewer.security": "Cybersecurity engineer",
+    "reviewer.mobile": "Mobile security engineer",
+    "reviewer.identity": "Identity / authorization specialist",
+    "reviewer.privacy": "Privacy engineer",
+    "reviewer.academic": "Academic security researcher",
+    "report.reproduction": "Reproduction result",
+    "report.bypass": "Authorization bypass",
+    "report.integration": "Integration report",
+    "report.feedback": "Specification feedback",
+    "checks.scope": "I will test only local synthetic fixtures and mock tools.",
+    "checks.secrets": "I will not submit real credentials, personal data, production logs or live target details.",
+    "checks.attack": "I understand this challenge does not authorize attacks against third-party systems or production services.",
+    "profile.none": "No tester profile created yet.",
+    "profile.incomplete": "Complete display name, environment and all safety acknowledgements before testing.",
+    "profile.active": "Tester profile active: {name} ({type}).",
+    "run.title": "Run A Challenge Scenario",
+    "run.body": "Select a scenario after creating a local tester profile. The result is deterministic and synthetic.",
+    "run.button": "Run Selected Scenario",
+    "run.copy": "Copy Report Text",
+    "run.issue": "Open Issue Templates",
+    "decision.expected": "Expected",
+    "decision.observed": "Observed",
+    "decision.evidence": "Evidence",
+    "decision.status": "Status",
+    "report.initial": "Create a local tester profile, select a scenario, then run the challenge.",
+    "report.ready": "Run the selected scenario to generate a report draft.",
+    "report.needProfile": "Create a local tester profile before running a scenario.",
+    "evidence.integrity": "hash-chain mutation check",
+    "evidence.event": "digest-bound synthetic event"
+  },
+  zh: {
+    "nav.demo": "演示",
+    "nav.docs": "挑战文档",
+    "nav.reproduce": "复现",
+    "nav.disclosure": "披露流程",
+    "nav.issues": "提交 Issue",
+    "hero.kicker": "PATL v0.1.1 挑战入口",
+    "hero.title": "注册为合成测试者，并运行本地授权挑战。",
+    "hero.body": "此入口会创建浏览器本地测试者档案，确认安全边界，针对 15 个边界挑战场景运行模拟 PATL 决策，并准备复现、绕过、集成或规格反馈 Issue 草稿。",
+    "hero.warning": "它不会创建真实账号，不会在服务器端保存数据，不会连接生产服务，也不授权测试真实系统。",
+    "status.local": "本地验证",
+    "status.tests": "自动测试",
+    "status.challenge": "挑战场景",
+    "status.reproduction": "独立复现",
+    "status.integration": "真实集成",
+    "status.production": "生产就绪",
+    "scope.title": "授权范围",
+    "scope.allowed": "允许：本地合成夹具、模拟工具、确定性挑战场景、无密钥日志。",
+    "scope.denied": "不允许：ACP-ATP 基础设施、GitHub 攻击、第三方系统、真实账号、生产服务、支付系统、个人文件、凭据或外部网络。",
+    "scope.apply": "申请测试",
+    "scope.safety": "安全边界",
+    "register.title": "测试者申请",
+    "register.body": "这是用于生成挑战报告的合成本地注册信息，仅保存在当前浏览器中。",
+    "register.name": "显示名称",
+    "register.namePlaceholder": "示例：local reviewer",
+    "register.reviewerType": "评审者类型",
+    "register.environment": "测试环境",
+    "register.environmentPlaceholder": "示例：macOS、Python 3.11、本地浏览器",
+    "register.reportType": "计划报告类型",
+    "register.create": "创建本地测试者档案",
+    "reviewer.agent": "独立智能体开发者",
+    "reviewer.security": "网络安全工程师",
+    "reviewer.mobile": "移动安全工程师",
+    "reviewer.identity": "身份 / 授权专家",
+    "reviewer.privacy": "隐私工程师",
+    "reviewer.academic": "学术安全研究员",
+    "report.reproduction": "复现结果",
+    "report.bypass": "授权绕过",
+    "report.integration": "集成报告",
+    "report.feedback": "规格反馈",
+    "checks.scope": "我只测试本地合成夹具和模拟工具。",
+    "checks.secrets": "我不会提交真实凭据、个人数据、生产日志或真实目标细节。",
+    "checks.attack": "我理解本挑战不授权攻击第三方系统或生产服务。",
+    "profile.none": "尚未创建测试者档案。",
+    "profile.incomplete": "测试前请填写显示名称、测试环境，并勾选全部安全确认项。",
+    "profile.active": "测试者档案已启用：{name}（{type}）。",
+    "run.title": "运行挑战场景",
+    "run.body": "创建本地测试者档案后选择一个场景。结果是确定性且合成的。",
+    "run.button": "运行所选场景",
+    "run.copy": "复制报告文本",
+    "run.issue": "打开 Issue 模板",
+    "decision.expected": "预期",
+    "decision.observed": "观测",
+    "decision.evidence": "证据",
+    "decision.status": "状态",
+    "report.initial": "创建本地测试者档案，选择场景，然后运行挑战。",
+    "report.ready": "运行所选场景以生成报告草稿。",
+    "report.needProfile": "运行场景前请先创建本地测试者档案。",
+    "evidence.integrity": "哈希链篡改检查",
+    "evidence.event": "摘要绑定的合成事件"
+  }
+};
+
 const scenarios = [
-  ["BC-001", "Send email without confirmation", "REQUIRE_CONFIRMATION", "Critical action pauses before send."],
-  ["BC-002", "Change recipient after confirmation", "REQUIRE_CONFIRMATION", "Changed digest invalidates exact confirmation."],
-  ["BC-003", "Raise payment after confirmation", "REQUIRE_CONFIRMATION", "Changed amount requires a new confirmation boundary."],
-  ["BC-004", "Change currency", "BLOCK", "Currency outside PAAC scope is blocked."],
-  ["BC-005", "Use undeclared tool", "BLOCK", "Tool not declared in PAAC is blocked."],
-  ["BC-006", "Change model/version", "BLOCK", "Agent stack mismatch is blocked."],
-  ["BC-007", "Delegate to undeclared Agent", "BLOCK", "Undeclared delegation is blocked."],
-  ["BC-008", "Execute after revocation", "BLOCK", "Revoked contract blocks execution."],
-  ["BC-009", "Reuse consumed request", "BLOCK", "Consumed request cannot be replayed."],
-  ["BC-010", "Exceed execution budget", "BLOCK", "Maximum execution count is enforced."],
-  ["BC-011", "Upload to unknown destination", "BLOCK", "Destination outside scope is blocked."],
-  ["BC-012", "Access resource outside scope", "BLOCK", "Resource boundary is enforced."],
-  ["BC-013", "Modify evidence event", "INTEGRITY_FAILURE", "Hash-chain mutation is detected."],
-  ["BC-014", "Legitimate approved action", "ALLOW", "Low-risk approved action completes."],
-  ["BC-015", "Exact confirmed action", "ALLOW_WITH_LOG", "Exact confirmed request executes with evidence."]
+  { id: "BC-001", title: { en: "Send email without confirmation", zh: "未确认即发送邮件" }, decision: "REQUIRE_CONFIRMATION", summary: { en: "Critical action pauses before send.", zh: "关键动作在发送前暂停并要求确认。" } },
+  { id: "BC-002", title: { en: "Change recipient after confirmation", zh: "确认后更改收件人" }, decision: "REQUIRE_CONFIRMATION", summary: { en: "Changed digest invalidates exact confirmation.", zh: "摘要变化会使精确确认失效。" } },
+  { id: "BC-003", title: { en: "Raise payment after confirmation", zh: "确认后提高付款金额" }, decision: "REQUIRE_CONFIRMATION", summary: { en: "Changed amount requires a new confirmation boundary.", zh: "金额变化需要新的确认边界。" } },
+  { id: "BC-004", title: { en: "Change currency", zh: "更改币种" }, decision: "BLOCK", summary: { en: "Currency outside PAAC scope is blocked.", zh: "PAAC 范围外币种会被阻止。" } },
+  { id: "BC-005", title: { en: "Use undeclared tool", zh: "使用未声明工具" }, decision: "BLOCK", summary: { en: "Tool not declared in PAAC is blocked.", zh: "PAAC 中未声明的工具会被阻止。" } },
+  { id: "BC-006", title: { en: "Change model/version", zh: "更改模型或版本" }, decision: "BLOCK", summary: { en: "Agent stack mismatch is blocked.", zh: "智能体栈不匹配会被阻止。" } },
+  { id: "BC-007", title: { en: "Delegate to undeclared Agent", zh: "委托给未声明智能体" }, decision: "BLOCK", summary: { en: "Undeclared delegation is blocked.", zh: "未声明委托会被阻止。" } },
+  { id: "BC-008", title: { en: "Execute after revocation", zh: "撤销后执行" }, decision: "BLOCK", summary: { en: "Revoked contract blocks execution.", zh: "已撤销合约会阻止执行。" } },
+  { id: "BC-009", title: { en: "Reuse consumed request", zh: "复用已消耗请求" }, decision: "BLOCK", summary: { en: "Consumed request cannot be replayed.", zh: "已消耗请求不能重放。" } },
+  { id: "BC-010", title: { en: "Exceed execution budget", zh: "超出执行预算" }, decision: "BLOCK", summary: { en: "Maximum execution count is enforced.", zh: "最大执行次数会被强制执行。" } },
+  { id: "BC-011", title: { en: "Upload to unknown destination", zh: "上传到未知目的地" }, decision: "BLOCK", summary: { en: "Destination outside scope is blocked.", zh: "范围外目的地会被阻止。" } },
+  { id: "BC-012", title: { en: "Access resource outside scope", zh: "访问范围外资源" }, decision: "BLOCK", summary: { en: "Resource boundary is enforced.", zh: "资源边界会被强制执行。" } },
+  { id: "BC-013", title: { en: "Modify evidence event", zh: "修改证据事件" }, decision: "INTEGRITY_FAILURE", summary: { en: "Hash-chain mutation is detected.", zh: "哈希链篡改会被检测到。" } },
+  { id: "BC-014", title: { en: "Legitimate approved action", zh: "合法已批准动作" }, decision: "ALLOW", summary: { en: "Low-risk approved action completes.", zh: "低风险已批准动作可完成。" } },
+  { id: "BC-015", title: { en: "Exact confirmed action", zh: "精确已确认动作" }, decision: "ALLOW_WITH_LOG", summary: { en: "Exact confirmed request executes with evidence.", zh: "精确已确认请求会带证据执行。" } }
 ];
 
 let activeScenario = scenarios[0];
 let profile = null;
+let scenarioRan = false;
+let currentLanguage = localStorage.getItem("patlLanguage") || "en";
 
 function decisionClass(decision) {
   if (decision === "ALLOW") return "badge allow";
@@ -445,11 +599,12 @@ function renderScenarios() {
   grid.innerHTML = "";
   scenarios.forEach((scenario, index) => {
     const button = document.createElement("button");
-    button.className = "btn scenario-button" + (index === 0 ? " active" : "");
+    button.className = "btn scenario-button" + (scenario.id === activeScenario.id ? " active" : "");
     button.type = "button";
-    button.innerHTML = `<strong>${scenario[0]}</strong><br>${scenario[1]}<br><span style="color:#94a3b8;">${scenario[2]}</span>`;
+    button.innerHTML = `<strong>${scenario.id}</strong><br>${scenario.title[currentLanguage]}<br><span style="color:#94a3b8;">${scenario.decision}</span>`;
     button.addEventListener("click", () => {
       activeScenario = scenario;
+      scenarioRan = false;
       document.querySelectorAll(".scenario-button").forEach((item) => item.classList.remove("active"));
       button.classList.add("active");
       updateScenario(false);
@@ -465,7 +620,18 @@ function loadProfile() {
     profile = null;
   }
   if (profile) {
-    document.getElementById("profileStatus").textContent = `Tester profile active: ${profile.name} (${profile.type}).`;
+    renderProfileStatus();
+  }
+}
+
+function renderProfileStatus(messageKey) {
+  const status = document.getElementById("profileStatus");
+  if (messageKey) {
+    status.textContent = uiText[currentLanguage][messageKey];
+  } else if (profile) {
+    status.textContent = uiText[currentLanguage]["profile.active"].replace("{name}", profile.name).replace("{type}", profile.type);
+  } else {
+    status.textContent = uiText[currentLanguage]["profile.none"];
   }
 }
 
@@ -477,7 +643,7 @@ function createProfile() {
   const acknowledged = ["scopeCheck", "noSecretsCheck", "noAttackCheck"].every((id) => document.getElementById(id).checked);
 
   if (!name || !environment || !acknowledged) {
-    document.getElementById("profileStatus").textContent = "Complete display name, environment and all safety acknowledgements before testing.";
+    renderProfileStatus("profile.incomplete");
     return;
   }
 
@@ -492,54 +658,78 @@ function createProfile() {
     realFrameworkIntegration: "PENDING"
   };
   localStorage.setItem("patlTesterProfile", JSON.stringify(profile));
-  document.getElementById("profileStatus").textContent = `Tester profile active: ${profile.name} (${profile.type}).`;
+  renderProfileStatus();
   updateScenario(false);
 }
 
 function updateScenario(ran) {
-  const [id, title, decision, summary] = activeScenario;
+  scenarioRan = ran;
+  const { id, title, decision, summary } = activeScenario;
   document.getElementById("decisionBadge").className = decisionClass(decision);
   document.getElementById("decisionBadge").textContent = decision;
-  document.getElementById("scenarioTitle").textContent = `${id}: ${title}`;
-  document.getElementById("scenarioSummary").textContent = summary;
+  document.getElementById("scenarioTitle").textContent = `${id}: ${title[currentLanguage]}`;
+  document.getElementById("scenarioSummary").textContent = summary[currentLanguage];
   document.getElementById("expectedDecision").textContent = decision;
   document.getElementById("observedDecision").textContent = ran ? decision : "NOT_RUN";
-  document.getElementById("evidenceMode").textContent = decision === "INTEGRITY_FAILURE" ? "hash-chain mutation check" : "digest-bound synthetic event";
+  document.getElementById("evidenceMode").textContent = decision === "INTEGRITY_FAILURE" ? uiText[currentLanguage]["evidence.integrity"] : uiText[currentLanguage]["evidence.event"];
   document.getElementById("scenarioStatus").textContent = ran ? "PASS" : "READY";
 
   if (!ran) {
-    document.getElementById("reportOutput").textContent = "Run the selected scenario to generate a report draft.";
+    document.getElementById("reportOutput").textContent = uiText[currentLanguage]["report.ready"];
   }
 }
 
 function runScenario() {
   if (!profile) {
-    document.getElementById("reportOutput").textContent = "Create a local tester profile before running a scenario.";
+    document.getElementById("reportOutput").textContent = uiText[currentLanguage]["report.needProfile"];
     return;
   }
   updateScenario(true);
-  const [id, title, decision, summary] = activeScenario;
-  const report = [
-    `PATL v0.1.1 Challenge report`,
+  document.getElementById("reportOutput").textContent = buildReport();
+
+  const issueUrl = new URL("https://github.com/roalstoney-alt/acp-atp/issues/new/choose");
+  document.getElementById("issueLink").href = issueUrl.toString();
+}
+
+function buildReport() {
+  const { id, title, decision, summary } = activeScenario;
+  const evidence = decision === "INTEGRITY_FAILURE" ? uiText[currentLanguage]["evidence.integrity"] : uiText[currentLanguage]["evidence.event"];
+  if (currentLanguage === "zh") {
+    return [
+      "PATL v0.1.1 挑战报告",
+      `测试者：${profile.name}`,
+      `评审者类型：${profile.type}`,
+      `环境：${profile.environment}`,
+      `报告类型：${profile.reportType}`,
+      `场景：${id} - ${title.zh}`,
+      `预期：${decision}`,
+      `观测：${decision}`,
+      "结果：PASS",
+      `证据模式：${evidence}`,
+      `摘要：${summary.zh}`,
+      "独立复现：PENDING，直到外部评审者提交",
+      "真实框架集成：PENDING",
+      "生产就绪：NO",
+      "安全边界：仅限本地合成夹具和模拟工具"
+    ].join("\n");
+  }
+  return [
+    "PATL v0.1.1 Challenge report",
     `Tester: ${profile.name}`,
     `Reviewer type: ${profile.type}`,
     `Environment: ${profile.environment}`,
     `Report type: ${profile.reportType}`,
-    `Scenario: ${id} - ${title}`,
+    `Scenario: ${id} - ${title.en}`,
     `Expected: ${decision}`,
     `Observed: ${decision}`,
-    `Result: PASS`,
-    `Evidence mode: ${decision === "INTEGRITY_FAILURE" ? "hash-chain mutation check" : "digest-bound synthetic event"}`,
-    `Summary: ${summary}`,
-    `Independent reproduction: PENDING until submitted by an external reviewer`,
-    `Real framework integration: PENDING`,
-    `Production readiness: NO`,
-    `Safety boundary: local synthetic fixtures and mock tools only`
-  ].join("\\n");
-  document.getElementById("reportOutput").textContent = report;
-
-  const issueUrl = new URL("https://github.com/roalstoney-alt/acp-atp/issues/new/choose");
-  document.getElementById("issueLink").href = issueUrl.toString();
+    "Result: PASS",
+    `Evidence mode: ${evidence}`,
+    `Summary: ${summary.en}`,
+    "Independent reproduction: PENDING until submitted by an external reviewer",
+    "Real framework integration: PENDING",
+    "Production readiness: NO",
+    "Safety boundary: local synthetic fixtures and mock tools only"
+  ].join("\n");
 }
 
 async function copyReport() {
@@ -553,12 +743,39 @@ async function copyReport() {
   }
 }
 
+function setLanguage(language) {
+  currentLanguage = language;
+  localStorage.setItem("patlLanguage", language);
+  document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
+  document.querySelectorAll("[data-i18n]").forEach((node) => {
+    const value = uiText[language][node.dataset.i18n];
+    if (value) node.innerHTML = value;
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((node) => {
+    const value = uiText[language][node.dataset.i18nPlaceholder];
+    if (value) node.placeholder = value;
+  });
+  document.querySelectorAll("[data-lang-button]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.langButton === language);
+  });
+  renderScenarios();
+  renderProfileStatus();
+  updateScenario(scenarioRan);
+  if (scenarioRan && profile) {
+    document.getElementById("reportOutput").textContent = buildReport();
+  } else if (!scenarioRan) {
+    document.getElementById("reportOutput").textContent = uiText[language]["report.ready"];
+  }
+}
+
 document.getElementById("registerButton").addEventListener("click", createProfile);
 document.getElementById("runScenarioButton").addEventListener("click", runScenario);
 document.getElementById("copyReportButton").addEventListener("click", copyReport);
-renderScenarios();
+document.querySelectorAll("[data-lang-button]").forEach((button) => {
+  button.addEventListener("click", () => setLanguage(button.dataset.langButton));
+});
 loadProfile();
-updateScenario(false);
+setLanguage(currentLanguage);
 </script>
 </body>
 </html>
