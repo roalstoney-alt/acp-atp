@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ACP–ATP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#05070d;
+  color:white;
+}
+
+/* NAV */
+.nav {
+  display:flex;
+  justify-content:space-between;
+  padding:20px 40px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.menu {
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.nav a {
+  color:white;
+  text-decoration:none;
+  opacity:0.8;
+}
+
+/* DROPDOWN */
+.dropdown { position:relative; }
+.dropdown-toggle { cursor:pointer; }
+
+.dropdown-content {
+  position:absolute;
+  top:100%;
+  left:0;
+  background:#111827;
+  border-radius:8px;
+  padding:10px 0;
+  min-width:180px;
+  display:none;
+}
+
+.dropdown.active .dropdown-content {
+  display:block;
+}
+
+.dropdown-content a {
+  display:block;
+  padding:10px 15px;
+  color:white;
+}
+
+.dropdown-content a:hover {
+  background:#1f2937;
+}
+
+/* LANGUAGE */
+.lang-switch a {
+  margin-left:10px;
+  cursor:pointer;
+}
+
+/* LAYOUT */
+.container {
+  max-width:900px;
+  margin:auto;
+  padding:80px 20px;
+}
+
+h1 {font-size:48px;}
+h2 {margin-top:100px;}
+p {color:#9ca3af; line-height:1.7;}
+
+.btn {
+  display:inline-block;
+  padding:12px 18px;
+  border-radius:6px;
+  background:#6366f1;
+  color:white;
+  text-decoration:none;
+  margin-top:20px;
+  margin-right:10px;
+}
+
+/* DIAGRAM */
+.diagram {
+  margin-top:60px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:25px;
+}
+
+.layer {
+  padding:18px 30px;
+  border-radius:8px;
+  background:#111827;
+}
+
+.layer.core { background:#6366f1; }
+
+.bottom {
+  display:flex;
+  gap:30px;
+}
+
+/* PRODUCTS */
+.product {
+  display:block;
+  margin-top:30px;
+  padding:20px;
+  background:#111827;
+  border-radius:8px;
+  text-decoration:none;
+  color:white;
+  transition:all 0.2s ease;
+}
+
+.product:hover {
+  background:#1f2937;
+  transform:translateY(-2px);
+
+}
+
+/* FOOTER */
+.footer {
+  margin-top:120px;
+  padding-top:40px;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+
+/* LANGUAGE */
+.en { display:block; }
+.zh { display:none; }
+.id { display:none; }
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <div><b>ACP–ATP</b></div>
+
+  <div class="menu">
+    <a href="#about">About</a>
+
+    <div class="dropdown" id="dropdown">
+      <span class="dropdown-toggle" onclick="toggleMenu()">System ▾</span>
+      <div class="dropdown-content">
+        <a href="https://roalstoney-alt.github.io/GMPE/">GPDE</a>
+        <a href="https://roalstoney-alt.github.io/AI-Guard/">AI Guard</a>
+        <a href="https://roalstoney-alt.github.io/acp-atp/">ACP Engine</a>
+      </div>
+    </div>
+
+    <a href="#join">Join</a>
+
+    <div class="lang-switch">
+      <a onclick="switchLang('en')">EN</a>
+      <a onclick="switchLang('zh')">中文</a>
+      <a onclick="switchLang('id')">ID</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- HERO -->
+<h1>
+<span class="en">Coordinate Execution Across AI, Humans, and Capital</span>
+<span class="zh">协调 AI、人类与资本的执行</span>
+<span class="id">Koordinasi Eksekusi AI, Manusia, dan Modal</span>
+</h1>
+
+<p>
+<span class="en">ACP–ATP reduces coordination cost by turning behavior into verifiable signals.</span>
+<span class="zh">ACP–ATP 通过将行为转化为可验证信号降低协作成本。</span>
+<span class="id">ACP–ATP mengurangi biaya koordinasi dengan menjadikan perilaku dapat diverifikasi.</span>
+</p>
+
+<a class="btn" href="ACP-ATP.pdf">Whitepaper</a>
+
+<!-- POSITION -->
+<h2>
+<span class="en">Where We Sit</span>
+<span class="zh">我们的位置</span>
+<span class="id">Posisi Kami</span>
+</h2>
+
+<p>
+<span class="en">The next internet is built on execution, not information.</span>
+<span class="zh">下一代互联网建立在执行之上，而非信息。</span>
+<span class="id">Internet berikutnya dibangun di atas eksekusi, bukan informasi.</span>
+</p>
+
+<div class="diagram">
+  <div class="layer">Applications</div>
+  <div class="layer core">ACP–ATP</div>
+  <div class="bottom">
+    <div class="layer">AI</div>
+    <div class="layer">Human</div>
+  </div>
+</div>
+
+<p>
+<span class="en">We sit where execution becomes trust, and trust becomes value.</span>
+<span class="zh">我们处在执行转化为信任、信任转化为价值的位置。</span>
+<span class="id">Kami berada di titik di mana eksekusi menjadi kepercayaan dan nilai.</span>
+</p>
+
+<!-- WHY -->
+<h2 id="about">
+<span class="en">Why This Exists</span>
+<span class="zh">为什么存在</span>
+<span class="id">Mengapa Ini Ada</span>
+</h2>
+
+<p class="en">Execution today is expensive — unclear communication, unverifiable outcomes, and fragile trust.</p>
+<p class="zh">当前执行成本高：沟通不清晰、结果不可验证、信任脆弱。</p>
+<p class="id">Eksekusi saat ini mahal — komunikasi tidak jelas dan hasil sulit diverifikasi.</p>
+
+<p class="en">ACP–ATP reduces coordination cost across AI, humans, and capital.</p>
+<p class="zh">ACP–ATP 降低 AI、人类与资本之间的协作成本。</p>
+<p class="id">ACP–ATP mengurangi biaya koordinasi antara AI, manusia, dan modal.</p>
+
+<!-- PRODUCTS -->
+<h2>
+<span class="en">Products</span>
+<span class="zh">产品</span>
+<span class="id">Produk</span>
+</h2>
+
+<div class="product">
+<a href="https://roalstoney-alt.github.io/GMPE/" class="product">
+  <b>GPDE</b><br>
+  <span class="en">Human execution network</span>
+  <span class="zh">人类执行网络</span>
+  <span class="id">Jaringan eksekusi manusia</span>
+</a>
+</div>
+
+<div class="product">
+<a href="https://roalstoney-alt.github.io/AI-Guard/" class="product">
+  <b>AI Guard</b><br>
+  <span class="en">AI behavior recording</span>
+  <span class="zh">AI 行为记录</span>
+  <span class="id">Pencatatan perilaku AI</span>
+</a>
+</div>
+
+<div class="product">
+<a href="https://roalstoney-alt.github.io/acp-atp/" class="product">
+  <b>ACP Engine</b><br>
+  <span class="en">Core coordination logic</span>
+  <span class="zh">核心协调引擎</span>
+  <span class="id">Mesin koordinasi inti</span>
+</a>
+</div>
+
+<!-- JOIN -->
+<h2 id="join">
+<span class="en">Join</span>
+<span class="zh">加入我们</span>
+<span class="id">Bergabung</span>
+</h2>
+
+<p class="en">Build with us if you believe coordination should be verifiable.</p>
+<p class="zh">如果你相信协作应可验证，欢迎加入。</p>
+<p class="id">Bergabung jika Anda percaya koordinasi harus dapat diverifikasi.</p>
+
+<a class="btn" href="https://github.com/roalstoney-alt/ACP">GitHub</a>
+<a class="btn" href="https://x.com/StoneyRoal_rst">X</a>
+
+<div class="footer">
+<p>From Proof of Work → Proof of Behavior</p>
+</div>
+
+</div>
+
+<script>
+function toggleMenu(){
+  document.getElementById("dropdown").classList.toggle("active");
+}
+
+document.addEventListener("click", function(e){
+  const dropdown = document.getElementById("dropdown");
+  if(!dropdown.contains(e.target)){
+    dropdown.classList.remove("active");
+  }
+});
+
+function switchLang(lang){
+  localStorage.setItem("lang", lang);
+  document.querySelectorAll('.en,.zh,.id').forEach(e=>e.style.display='none');
+  document.querySelectorAll('.'+lang).forEach(e=>e.style.display='block');
+}
+
+function initLang(){
+  let lang = localStorage.getItem("lang");
+
+  if(!lang){
+    const userLang = navigator.language || 'en';
+    if(userLang.startsWith('zh')) lang='zh';
+    else if(userLang.startsWith('id')) lang='id';
+    else lang='en';
+  }
+
+  switchLang(lang);
+}
+
+initLang();
+</script>
+
+</body>
+</html>

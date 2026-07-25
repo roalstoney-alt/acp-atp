@@ -1,0 +1,9 @@
+patl:
+  contracts: trust_layer.fixtures.alpha_contracts
+  evidence_ledger: in_memory_hash_chain
+  enforcement_boundary: before_tool_invoke
+framework:
+  selected_boundary: langchain_style_tool_invocation
+  external_dependency_installed: false
+  real_credentials_required: false
+  core_framework_forked: false

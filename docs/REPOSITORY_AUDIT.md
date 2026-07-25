@@ -5,9 +5,9 @@ Date: 2026-07-21
 ## Scope Inspected
 
 - GitHub repo: `https://github.com/roalstoney-alt/acp-atp`
-- Local clone used for integration: `/Volumes/macos/mos/acp-atp-github`
-- Existing local static copies inspected: `/Volumes/macos/acp-atp`, `/Volumes/macos/acp3`, `/Volumes/macos/acp4.0`
-- Source document: `/Volumes/macos/mos/ACP-ATP Personal Agent Trust Layer.docx`
+- Local clone used for integration: canonical Git checkout.
+- Existing local static copies inspected: local ACP-ATP static archives.
+- Source document: local PATL source document archive.
 - Existing code: `agent.py`, `main.py`, `scoring.py`, `sandbox.py`, `registry.py`, `no_protection.py`
 - Existing site assets: `index.html`, `graph_demo.html`, `demo.mp4`, `demo2.mp4`
 

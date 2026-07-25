@@ -19,19 +19,3 @@ Critical controls are implemented in `PolicyEvaluator` and `EnforcementEngine`, 
 ## 2026-07-21: Evidence Before Credit
 
 Agent credit events are derived from evidence events so credit cannot become an independent permission source.
-
-## 2026-07-21: Explicit Authorization Lifecycle
-
-v0.1.1 replaces simple replay tracking with request lifecycle state. `REQUIRE_CONFIRMATION` leaves a request in `AWAITING_CONFIRMATION` and does not consume execution allowance.
-
-## 2026-07-21: Confirmation Digest Binding
-
-User confirmation is bound to a canonical request digest over contract ID, request ID, agent stack, action, resource and complete parameters. Signatures remain simulated until real local signing is implemented and tested.
-
-## 2026-07-21: Schema/Runtime Loader
-
-PAAC JSON now enters runtime through a loader that applies Draft 2020-12 JSON Schema validation, semantic validation and dataclass construction.
-
-## 2026-07-21: In-Memory Hash Chain
-
-The alpha evidence ledger uses an in-memory hash chain with `verify_integrity()` to catch mutation during local review. Durable tamper resistance remains unresolved.

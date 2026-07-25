@@ -1,0 +1,4 @@
+source_id,type,title,publisher,date,url,notes
+SRC-001,PRIMARY,"OpenAI and Hugging Face partner to address security incident during model evaluation",OpenAI,2026-07-21,https://openai.com/index/hugging-face-model-evaluation-security-incident/,"Primary OpenAI incident statement."
+SRC-002,PRIMARY,"Security incident disclosure - July 2026",Hugging Face,2026-07-16,https://huggingface.co/blog/security-incident-july-2026,"Primary Hugging Face disclosure."
+SRC-003,SECONDARY,"Reuters report on OpenAI-Hugging Face incident",Reuters,2026-07-22,https://www.reuters.com/,"Use only for context when primary source is insufficient."

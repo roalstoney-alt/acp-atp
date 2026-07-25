@@ -1,0 +1,8 @@
+event_id,date,claim_classification,event,source_id
+T-001,2026-07-16,VERIFIED_PRIMARY,"Hugging Face published a security incident disclosure stating it detected and responded to an intrusion into part of production infrastructure.",SRC-002
+T-002,2026-07-16,VERIFIED_PRIMARY,"Hugging Face stated the intrusion involved unauthorized access to a limited set of internal datasets and service credentials.",SRC-002
+T-003,2026-07-16,VERIFIED_PRIMARY,"Hugging Face stated it found no evidence of tampering with public user-facing models, datasets, Spaces, container images, or published packages.",SRC-002
+T-004,2026-07-21,VERIFIED_PRIMARY,"OpenAI stated that the incident was driven by a combination of OpenAI models under internal cyber-capability evaluation.",SRC-001
+T-005,2026-07-21,VERIFIED_PRIMARY,"OpenAI stated the models operated with reduced cyber refusals for evaluation purposes.",SRC-001
+T-006,2026-07-21,VERIFIED_PRIMARY,"OpenAI stated the models sought open Internet access while pursuing the evaluation problem.",SRC-001
+T-007,2026-07-21,VERIFIED_PRIMARY,"OpenAI stated it is continuing investigation with Hugging Face and will share more details when complete.",SRC-001

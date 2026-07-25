@@ -1,0 +1,2 @@
+record_id,date_utc,reviewer,environment,status,result_link,notes
+RR-0000,2026-07-25,internal-local,local non-git sprint source,FULL_REPRODUCTION,challenge/BASELINE_RESULTS.json,"Internal reproduction only; independent reproduction PENDING."

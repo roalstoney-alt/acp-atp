@@ -1,0 +1,43 @@
+name: Reproduction result
+description: Report a local synthetic PATL reproduction attempt.
+title: "[Reproduction]: "
+labels: ["reproduction", "patl-v0.1.1"]
+body:
+  - type: markdown
+    attributes:
+      value: "Use only local synthetic fixtures and mock tools. Do not include secrets, real credentials, personal data, or live target details."
+  - type: dropdown
+    id: status
+    attributes:
+      label: Reproduction status
+      options:
+        - FULL_REPRODUCTION
+        - PARTIAL_REPRODUCTION
+        - BLOCKED_ENVIRONMENT
+        - BLOCKED_DOCUMENTATION
+        - RESULT_MISMATCH
+        - STARTED
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python version, install steps, and any undocumented steps.
+    validations:
+      required: true
+  - type: textarea
+    id: commands
+    attributes:
+      label: Commands run
+      description: Include tests, demo, challenge and adapter commands.
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: Observed results
+      description: Include pass counts, mismatches and relevant secret-free logs.
+    validations:
+      required: true
+

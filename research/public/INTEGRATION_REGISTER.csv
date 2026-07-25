@@ -1,0 +1,3 @@
+integration_id,date_utc,framework,status,eml,link,notes
+IR-0000,2026-07-25,LangChain-style synthetic wrapper,LOCAL_ADAPTER_ONLY,EML-2,integrations/selected_framework/README.md,"Real dependency-backed framework integration PENDING."
+

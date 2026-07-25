@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ACP–ATP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#05070d;
+  color:white;
+}
+
+/* NAV */
+.nav {
+  display:flex;
+  justify-content:space-between;
+  padding:20px 40px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.menu {
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.nav a {
+  color:white;
+  text-decoration:none;
+  opacity:0.7;
+}
+
+/* DROPDOWN */
+.dropdown {
+  position:relative;
+  cursor:pointer;
+}
+
+.dropdown-content {
+  position:absolute;
+  top:30px;
+  background:#111827;
+  border-radius:8px;
+  padding:10px;
+  min-width:160px;
+  display:none;
+}
+
+.dropdown-content a {
+  display:block;
+  padding:8px;
+  color:white;
+  opacity:0.8;
+}
+
+.dropdown-content a:hover {
+  background:#1f2937;
+}
+
+.dropdown:hover .dropdown-content {
+  display:block;
+}
+
+/* LAYOUT */
+.container {
+  max-width:900px;
+  margin:auto;
+  padding:80px 20px;
+}
+
+h1 {
+  font-size:48px;
+  font-weight:600;
+  line-height:1.2;
+}
+
+h2 {
+  margin-top:100px;
+  font-weight:500;
+}
+
+p {
+  color:#9ca3af;
+  line-height:1.7;
+}
+
+.btn {
+  display:inline-block;
+  padding:12px 18px;
+  border-radius:6px;
+  background:#6366f1;
+  text-decoration:none;
+  color:white;
+  margin-top:20px;
+  margin-right:10px;
+}
+
+/* DIAGRAM */
+.diagram {
+  margin-top:60px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:25px;
+}
+
+.layer {
+  padding:18px 30px;
+  border-radius:8px;
+  background:#111827;
+  text-align:center;
+  font-size:14px;
+  opacity:0;
+  transform:translateY(10px);
+  animation:fadeIn 1s forwards;
+}
+
+.layer:nth-child(1){animation-delay:0.3s;}
+.layer:nth-child(2){animation-delay:0.8s;}
+.layer:nth-child(3){animation-delay:1.3s;}
+
+.layer.core {
+  background:#6366f1;
+}
+
+.bottom {
+  display:flex;
+  gap:30px;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* PRODUCTS */
+.product {
+  margin-top:30px;
+  padding:20px;
+  background:#111827;
+  border-radius:8px;
+  transition:all 0.2s ease;
+}
+
+.product:hover {
+  background:#1f2937;
+}
+
+/* FOOTER */
+.footer {
+  margin-top:120px;
+  padding-top:40px;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <div><b>ACP–ATP</b></div>
+
+  <div class="menu">
+    <a href="#about">About</a>
+
+    <div class="dropdown">
+      <span>System ▾</span>
+      <div class="dropdown-content">
+        <a href="https://roalstoney-alt.github.io/GMPE/">GPDE</a>
+        <a href="#">AI Guard</a>
+        <a href="#">ACP Engine</a>
+      </div>
+    </div>
+
+    <a href="#join">Join</a>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- HERO -->
+<h1>
+Coordinate Execution<br>
+Across AI, Humans, and Capital
+</h1>
+
+<p>
+ACP–ATP reduces coordination cost by turning behavior into verifiable signals.
+</p>
+
+<a class="btn" href="ACP-ATP.pdf" target="_blank">Whitepaper</a>
+<a class="btn" href="https://github.com/YOUR_GITHUB">GitHub</a>
+
+<!-- POSITION -->
+<h2>Where We Sit</h2>
+
+<p>
+The next internet is not built on applications.  
+It is built on agents coordinating execution.
+</p>
+
+<div class="diagram">
+  <div class="layer">Applications</div>
+  <div class="layer core">
+    ACP–ATP<br>
+    Behavior Coordination Layer
+  </div>
+  <div class="bottom">
+    <div class="layer">AI Agents</div>
+    <div class="layer">Humans</div>
+  </div>
+</div>
+
+<p style="margin-top:20px;">
+We sit where execution becomes trust, and trust becomes value.
+</p>
+
+<!-- ABOUT -->
+<h2 id="about">Why This Exists</h2>
+
+<p>
+The current internet optimizes for information.  
+The next internet must optimize for execution.
+</p>
+
+<p>
+Execution today is expensive:
+unclear communication, unverifiable outcomes, and fragile trust.
+</p>
+
+<p>
+ACP–ATP exists to reduce the cost of coordination between
+agents, humans, and capital.
+</p>
+
+<!-- SYSTEM -->
+<h2 id="system">System</h2>
+
+<p><b>Behavior Capture</b><br>AI Guard records execution traces.</p>
+<p><b>Human Coordination</b><br>GPDE enables stake, task, and proof.</p>
+<p><b>Value Execution</b><br>ATP handles capital flow and settlement.</p>
+
+<!-- PRODUCTS (NEW) -->
+<h2>Products</h2>
+
+<div class="product">
+  <b>GPDE</b><br>
+  Entry point for human execution network — tasks, staking, and proof.
+  <br>
+  <a class="btn" href="https://roalstoney-alt.github.io/GMPE/">Open</a>
+</div>
+
+<div class="product">
+  <b>AI Guard</b><br>
+  Records AI agent behavior and execution trace.
+  <br>
+  <a class="btn" href="#">Open</a>
+</div>
+
+<div class="product">
+  <b>ACP Engine</b><br>
+  Core coordination logic — scoring, rules, and verification.
+  <br>
+  <a class="btn" href="#">Open</a>
+</div>
+
+<!-- JOIN -->
+<h2 id="join">Join</h2>
+
+<p>
+If you believe:
+</p>
+
+<p>
+– execution should be verifiable  
+– coordination cost should approach zero  
+– AI and humans should operate under shared rules  
+</p>
+
+<p>
+Then build with us.
+</p>
+
+<a class="btn" href="https://github.com/YOUR_GITHUB">Contribute</a>
+<a class="btn" href="https://x.com/YOUR_X">Follow</a>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>From Proof of Work → Proof of Behavior</p>
+</div>
+
+</div>
+
+</body>
+</html>

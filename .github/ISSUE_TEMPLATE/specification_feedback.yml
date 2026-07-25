@@ -1,0 +1,35 @@
+name: Specification feedback
+description: Provide feedback on PAAC, evidence, agent-credit or crosswalk specifications.
+title: "[Spec]: "
+labels: ["specification", "feedback", "patl-v0.1.1"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - PAAC
+        - Evidence event
+        - Agent credit event
+        - Boundary Challenge
+        - OWASP crosswalk
+        - NIST crosswalk
+        - CSA crosswalk
+        - Terminology
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Feedback
+      description: Identify the file, section, ambiguity, mismatch or proposed correction.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Supporting evidence or references
+    validations:
+      required: false
+

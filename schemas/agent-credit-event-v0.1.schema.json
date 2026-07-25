@@ -1,33 +1,18 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://patl.example/schemas/agent-credit-event-v0.1.schema.json",
-  "title": "PATL Agent Credit Event v0.1.1",
+  "title": "PATL Agent Credit Event v0.1",
   "type": "object",
-  "required": [
-    "event_version",
-    "event_type",
-    "event_id",
-    "source_evidence_id",
-    "agent_id",
-    "contract_id",
-    "action_type",
-    "decision",
-    "lifecycle_status",
-    "violation_count",
-    "created_at"
-  ],
+  "required": ["event_version", "event_type", "event_id", "source_evidence_id", "agent_id", "contract_id", "action_type", "decision", "violation_count", "created_at"],
   "properties": {
-    "event_version": {"const": "patl-agent-credit-v0.1.1"},
+    "event_version": {"const": "patl-agent-credit-v0.1"},
     "event_type": {"const": "patl.agent_credit_event"},
-    "event_id": {"type": "string", "pattern": "^ace_"},
-    "source_evidence_id": {"type": "string", "pattern": "^ev_"},
+    "event_id": {"type": "string"},
+    "source_evidence_id": {"type": "string"},
     "agent_id": {"type": "string"},
     "contract_id": {"type": "string"},
     "action_type": {"type": "string"},
     "decision": {"enum": ["ALLOW", "ALLOW_WITH_LOG", "REQUIRE_CONFIRMATION", "BLOCK"]},
-    "lifecycle_status": {
-      "enum": ["PENDING", "AWAITING_CONFIRMATION", "AUTHORIZED", "EXECUTED", "CONSUMED", "BLOCKED", "EXPIRED", "REVOKED"]
-    },
     "violation_count": {"type": "integer", "minimum": 0},
     "created_at": {"type": "string", "format": "date-time"}
   },

@@ -1,0 +1,6 @@
+claim_id,claim,baseline_eml,current_eml,change_reason,limitations
+CL-001,"PAAC can represent scoped personal-agent authorization contracts.",EML-1,EML-2,"Runtime model and JSON loader exist with schema validation.","No external implementer feedback."
+CL-002,"PATL can enforce method-level controls for demos.",EML-2,EML-3,"Unit tests and Boundary Challenge reproduce allow/confirm/block/revoke/replay behavior internally.","Internal reproduction is not independent validation."
+CL-003,"PATL evidence can detect local event mutation.",EML-1,EML-3,"Hash-chained ledger and mutation test pass internally.","No signatures or external transparency log."
+CL-004,"An external agent framework can integrate PATL.",EML-0,EML-2,"Isolated adapter exists for a LangChain-style tool boundary.","No installed framework dependency; not independent integration."
+CL-005,"External reviewers understand PATL correctly.",EML-0,EML-0,"No external review has occurred.","Outreach drafts are prepared only."

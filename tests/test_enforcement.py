@@ -3,8 +3,9 @@ from dataclasses import replace
 from datetime import datetime, timedelta, timezone
 
 from trust_layer.core import EnforcementEngine
-from trust_layer.evidence import request_digest
+from trust_layer.evidence import EvidenceLedger, request_digest
 from trust_layer.fixtures import alpha_contracts
+from trust_layer.loader import load_contracts_from_json
 from trust_layer.models import ActionRequest, ConfirmationRecord, RevocationRegistry
 
 
@@ -14,36 +15,40 @@ NOW = datetime(2026, 7, 21, 12, 0, tzinfo=timezone.utc)
 def req(
     request_id="req_1",
     contract_id="paac_email_demo",
+    agent_id="email-agent.mock",
     action_type="email.draft",
     resource="mailbox",
     params=None,
-    agent_stack=None,
+    metadata=None,
+    created_at=NOW,
 ):
-    contracts = alpha_contracts()
-    stack = agent_stack or contracts[contract_id].agent_stack
     return ActionRequest(
         request_id=request_id,
         contract_id=contract_id,
-        agent_stack=stack,
+        agent_id=agent_id,
         action_type=action_type,
         resource=resource,
         params=params or {"recipients": ["alice@example.com"], "content_hash": "sha256:x"},
-        created_at=NOW,
+        created_at=created_at,
+        metadata=metadata
+        or {
+            "agent_version": "0.1",
+            "model_id": "model.mock.safe",
+            "tool_id": f"{action_type.split('.')[0]}.mock",
+        },
     )
 
 
-def confirmation(request, confirmed=True, issued_at=NOW, expires_at=None):
+def confirmation_for(request, nonce="nonce-1", confirmed_at=NOW, expires_at=None):
     return ConfirmationRecord(
         request_id=request.request_id,
         contract_id=request.contract_id,
-        confirmed=confirmed,
-        confirmed_by="user",
-        confirmed_at=NOW,
-        issued_at=issued_at,
-        expires_at=expires_at or NOW + timedelta(minutes=5),
-        nonce=f"nonce-{request.request_id}",
         request_digest=request_digest(request),
-        signature="simulated:user-confirmation",
+        nonce=nonce,
+        confirmed=True,
+        confirmed_by="user",
+        confirmed_at=confirmed_at,
+        expires_at=expires_at or confirmed_at + timedelta(minutes=5),
     )
 
 
@@ -54,64 +59,97 @@ class EnforcementTests(unittest.TestCase):
     def test_allow_with_log_for_scoped_email_draft(self):
         result = EnforcementEngine(self.contracts, now=NOW).evaluate(req())
         self.assertEqual(result["decision"], "ALLOW_WITH_LOG")
-        self.assertEqual(result["lifecycle_status"], "CONSUMED")
-        self.assertEqual(result["lifecycle_transitions"], ["PENDING", "AUTHORIZED", "EXECUTED", "CONSUMED"])
 
-    def test_require_confirmation_does_not_consume_request(self):
-        request = req(action_type="email.send")
-        confirmations = {}
-        engine = EnforcementEngine(self.contracts, confirmations=confirmations, now=NOW)
-        first = engine.evaluate(request)
-        self.assertEqual(first["decision"], "REQUIRE_CONFIRMATION")
-        self.assertEqual(first["lifecycle_status"], "AWAITING_CONFIRMATION")
-        self.assertEqual(self.contracts["paac_email_demo"].execution_count, 0)
+    def test_send_requires_confirmation(self):
+        result = EnforcementEngine(self.contracts, now=NOW).evaluate(req(action_type="email.send"))
+        self.assertEqual(result["decision"], "REQUIRE_CONFIRMATION")
 
-        confirmations[request.request_id] = confirmation(request)
-        second = engine.evaluate(request)
-        self.assertEqual(second["decision"], "ALLOW_WITH_LOG")
-        self.assertEqual(second["lifecycle_status"], "CONSUMED")
-        self.assertEqual(second["lifecycle_transitions"][0], "AWAITING_CONFIRMATION")
-        self.assertEqual(self.contracts["paac_email_demo"].execution_count, 1)
-
-    def test_confirmation_binds_complete_request_digest(self):
-        request = req(action_type="email.send")
-        confirmations = {request.request_id: confirmation(request)}
+    def test_confirmed_send_allows_with_log(self):
+        request = req(action_type="email.send", metadata={
+            "agent_version": "0.1",
+            "model_id": "model.mock.safe",
+            "tool_id": "email.mock",
+            "confirmation_nonce": "nonce-1",
+        })
+        confirmations = {
+            "req_1": confirmation_for(request)
+        }
         result = EnforcementEngine(self.contracts, confirmations=confirmations, now=NOW).evaluate(request)
         self.assertEqual(result["decision"], "ALLOW_WITH_LOG")
-        self.assertEqual(result["evidence"]["request_digest"], request_digest(request))
 
-    def test_rejects_parameter_substitution_after_confirmation(self):
-        original = req(action_type="email.send", params={"recipients": ["alice@example.com"], "content_hash": "sha256:x"})
-        changed = req(action_type="email.send", params={"recipients": ["bob@example.com"], "content_hash": "sha256:x"})
-        confirmations = {original.request_id: confirmation(original)}
+    def test_confirmation_round_trip_does_not_consume_request(self):
+        request = req(action_type="email.send")
+        engine = EnforcementEngine(self.contracts, now=NOW)
+        first = engine.evaluate(request)
+        self.assertEqual(first["decision"], "REQUIRE_CONFIRMATION")
+        confirmed = replace(request, metadata={**request.metadata, "confirmation_nonce": "nonce-1"})
+        engine.confirmations[request.request_id] = confirmation_for(confirmed)
+        second = engine.evaluate(confirmed)
+        self.assertEqual(second["decision"], "ALLOW_WITH_LOG")
+
+    def test_changed_recipient_after_confirmation_blocks(self):
+        confirmed = req(action_type="email.send", metadata={
+            "agent_version": "0.1",
+            "model_id": "model.mock.safe",
+            "tool_id": "email.mock",
+            "confirmation_nonce": "nonce-1",
+        })
+        changed = replace(confirmed, params={"recipients": ["mallory@example.com"], "content_hash": "sha256:x"})
+        confirmations = {"req_1": confirmation_for(confirmed)}
+        result = EnforcementEngine(self.contracts, confirmations=confirmations, now=NOW).evaluate(changed)
+        self.assertEqual(result["decision"], "REQUIRE_CONFIRMATION")
+
+    def test_changed_payment_amount_after_confirmation_blocks(self):
+        confirmed = req(
+            contract_id="paac_travel_demo",
+            agent_id="travel-agent.mock",
+            action_type="travel.purchase",
+            resource="travel_api",
+            params={"amount": 400, "currency": "USD"},
+            metadata={"agent_version": "0.1", "model_id": "model.mock.safe", "tool_id": "travel.mock", "confirmation_nonce": "nonce-1"},
+        )
+        changed = replace(confirmed, params={"amount": 450, "currency": "USD"})
+        confirmations = {"req_1": confirmation_for(confirmed)}
+        result = EnforcementEngine(self.contracts, confirmations=confirmations, now=NOW).evaluate(changed)
+        self.assertEqual(result["decision"], "REQUIRE_CONFIRMATION")
+
+    def test_changed_currency_after_confirmation_blocks(self):
+        confirmed = req(
+            contract_id="paac_travel_demo",
+            agent_id="travel-agent.mock",
+            action_type="travel.purchase",
+            resource="travel_api",
+            params={"amount": 400, "currency": "USD"},
+            metadata={"agent_version": "0.1", "model_id": "model.mock.safe", "tool_id": "travel.mock", "confirmation_nonce": "nonce-1"},
+        )
+        changed = replace(confirmed, params={"amount": 400, "currency": "CAD"})
+        confirmations = {"req_1": confirmation_for(confirmed)}
         result = EnforcementEngine(self.contracts, confirmations=confirmations, now=NOW).evaluate(changed)
         self.assertEqual(result["decision"], "BLOCK")
-        self.assertIn("parameter_substitution", result["violations"])
+        self.assertIn("currency_mismatch", result["violations"])
 
-    def test_rejects_pending_request_parameter_substitution(self):
-        original = req(action_type="email.send", params={"recipients": ["alice@example.com"], "content_hash": "sha256:x"})
-        changed = req(action_type="email.send", params={"recipients": ["bob@example.com"], "content_hash": "sha256:x"})
-        engine = EnforcementEngine(self.contracts, now=NOW)
-        first = engine.evaluate(original)
-        second = engine.evaluate(changed)
-        self.assertEqual(first["decision"], "REQUIRE_CONFIRMATION")
-        self.assertEqual(second["decision"], "BLOCK")
-        self.assertIn("parameter_substitution", second["violations"])
+    def test_changed_resource_after_confirmation_requires_new_confirmation(self):
+        confirmed = req(action_type="email.send", resource="mailbox", metadata={
+            "agent_version": "0.1",
+            "model_id": "model.mock.safe",
+            "tool_id": "email.mock",
+            "confirmation_nonce": "nonce-1",
+        })
+        changed = replace(confirmed, resource="other_mailbox")
+        confirmations = {"req_1": confirmation_for(confirmed)}
+        result = EnforcementEngine(self.contracts, confirmations=confirmations, now=NOW).evaluate(changed)
+        self.assertEqual(result["decision"], "REQUIRE_CONFIRMATION")
 
-    def test_expired_confirmation_does_not_consume_request(self):
-        request = req(action_type="email.send")
-        confirmations = {request.request_id: confirmation(request, expires_at=NOW - timedelta(seconds=1))}
+    def test_expired_confirmation_requires_new_confirmation(self):
+        request = req(action_type="email.send", metadata={
+            "agent_version": "0.1",
+            "model_id": "model.mock.safe",
+            "tool_id": "email.mock",
+            "confirmation_nonce": "nonce-1",
+        })
+        confirmations = {"req_1": confirmation_for(request, expires_at=NOW - timedelta(seconds=1))}
         result = EnforcementEngine(self.contracts, confirmations=confirmations, now=NOW).evaluate(request)
         self.assertEqual(result["decision"], "REQUIRE_CONFIRMATION")
-        self.assertEqual(result["lifecycle_status"], "AWAITING_CONFIRMATION")
-        self.assertEqual(self.contracts["paac_email_demo"].execution_count, 0)
-
-    def test_confirmation_denial_blocks(self):
-        request = req(action_type="email.send")
-        confirmations = {request.request_id: confirmation(request, confirmed=False)}
-        result = EnforcementEngine(self.contracts, confirmations=confirmations, now=NOW).evaluate(request)
-        self.assertEqual(result["decision"], "BLOCK")
-        self.assertIn("invalid_confirmation", result["violations"])
 
     def test_blocks_unapproved_email_domain(self):
         result = EnforcementEngine(self.contracts, now=NOW).evaluate(
@@ -121,13 +159,15 @@ class EnforcementTests(unittest.TestCase):
         self.assertIn("unexpected_recipient", result["violations"])
 
     def test_blocks_payment_above_limit(self):
-        request = req(
-            contract_id="paac_travel_demo",
-            action_type="travel.purchase",
-            resource="travel_api",
-            params={"amount": 501, "currency": "USD"},
+        result = EnforcementEngine(self.contracts, now=NOW).evaluate(
+            req(
+                contract_id="paac_travel_demo",
+                agent_id="travel-agent.mock",
+                action_type="travel.purchase",
+                resource="travel_api",
+                params={"amount": 501, "currency": "USD"},
+            )
         )
-        result = EnforcementEngine(self.contracts, now=NOW).evaluate(request)
         self.assertEqual(result["decision"], "BLOCK")
         self.assertIn("payment_limit_exceeded", result["violations"])
 
@@ -135,6 +175,7 @@ class EnforcementTests(unittest.TestCase):
         result = EnforcementEngine(self.contracts, now=NOW).evaluate(
             req(
                 contract_id="paac_travel_demo",
+                agent_id="travel-agent.mock",
                 action_type="travel.purchase",
                 resource="travel_api",
                 params={"amount": 400, "currency": "USD"},
@@ -146,6 +187,7 @@ class EnforcementTests(unittest.TestCase):
         result = EnforcementEngine(self.contracts, now=NOW).evaluate(
             req(
                 contract_id="paac_file_demo",
+                agent_id="file-agent.mock",
                 action_type="file.delete",
                 resource="/workspace/demo/a.txt",
                 params={"path": "/workspace/demo/a.txt"},
@@ -157,6 +199,7 @@ class EnforcementTests(unittest.TestCase):
         result = EnforcementEngine(self.contracts, now=NOW).evaluate(
             req(
                 contract_id="paac_file_demo",
+                agent_id="file-agent.mock",
                 action_type="file.upload",
                 resource="/workspace/demo/a.txt",
                 params={"path": "/workspace/demo/a.txt"},
@@ -168,6 +211,7 @@ class EnforcementTests(unittest.TestCase):
         result = EnforcementEngine(self.contracts, now=NOW).evaluate(
             req(
                 contract_id="paac_file_demo",
+                agent_id="file-agent.mock",
                 action_type="file.rename",
                 resource="/etc/passwd",
                 params={"path": "/etc/passwd"},
@@ -176,96 +220,116 @@ class EnforcementTests(unittest.TestCase):
         self.assertEqual(result["decision"], "BLOCK")
         self.assertIn("path_scope_violation", result["violations"])
 
-    def test_blocks_expired_contract_with_injected_clock(self):
-        times = iter([NOW, NOW, NOW + timedelta(days=30), NOW + timedelta(days=30)])
-        engine = EnforcementEngine(self.contracts, clock=lambda: next(times))
-        first = engine.evaluate(req(request_id="req_clock_1"))
-        second = engine.evaluate(req(request_id="req_clock_2"))
-        self.assertEqual(first["decision"], "ALLOW_WITH_LOG")
-        self.assertEqual(second["decision"], "BLOCK")
-        self.assertEqual(second["lifecycle_status"], "EXPIRED")
-        self.assertIn("expired_authorization", second["violations"])
+    def test_blocks_expired_contract(self):
+        result = EnforcementEngine(self.contracts, now=NOW + timedelta(days=30)).evaluate(req())
+        self.assertEqual(result["decision"], "BLOCK")
+        self.assertIn("expired_authorization", result["violations"])
 
     def test_blocks_revoked_contract(self):
         reg = RevocationRegistry()
         reg.revoke_contract("paac_email_demo")
         result = EnforcementEngine(self.contracts, revocations=reg, now=NOW).evaluate(req())
         self.assertEqual(result["decision"], "BLOCK")
-        self.assertEqual(result["lifecycle_status"], "REVOKED")
         self.assertIn("revocation_bypass_attempt", result["violations"])
 
     def test_blocks_agent_mismatch(self):
-        stack = replace(self.contracts["paac_email_demo"].agent_stack, agent_id="other-agent")
-        result = EnforcementEngine(self.contracts, now=NOW).evaluate(req(agent_stack=stack))
+        result = EnforcementEngine(self.contracts, now=NOW).evaluate(req(agent_id="other-agent"))
         self.assertEqual(result["decision"], "BLOCK")
         self.assertIn("agent_mismatch", result["violations"])
 
+    def test_blocks_unknown_contract(self):
+        result = EnforcementEngine(self.contracts, now=NOW).evaluate(req(contract_id="missing_contract"))
+        self.assertEqual(result["decision"], "BLOCK")
+        self.assertIn("missing_authorization", result["violations"])
+
+    def test_blocks_replay(self):
+        engine = EnforcementEngine(self.contracts, now=NOW)
+        first = engine.evaluate(req())
+        second = engine.evaluate(req())
+        self.assertEqual(first["decision"], "ALLOW_WITH_LOG")
+        self.assertEqual(second["decision"], "BLOCK")
+        self.assertIn("replay", second["violations"])
+
     def test_blocks_agent_version_mismatch(self):
-        stack = replace(self.contracts["paac_email_demo"].agent_stack, agent_version="9.9.9")
-        result = EnforcementEngine(self.contracts, now=NOW).evaluate(req(agent_stack=stack))
+        result = EnforcementEngine(self.contracts, now=NOW).evaluate(
+            req(metadata={"agent_version": "0.2", "model_id": "model.mock.safe", "tool_id": "email.mock"})
+        )
         self.assertEqual(result["decision"], "BLOCK")
         self.assertIn("agent_version_mismatch", result["violations"])
 
     def test_blocks_model_mismatch(self):
-        stack = replace(self.contracts["paac_email_demo"].agent_stack, model_id="other-model")
-        result = EnforcementEngine(self.contracts, now=NOW).evaluate(req(agent_stack=stack))
+        result = EnforcementEngine(self.contracts, now=NOW).evaluate(
+            req(metadata={"agent_version": "0.1", "model_id": "model.mock.other", "tool_id": "email.mock"})
+        )
         self.assertEqual(result["decision"], "BLOCK")
         self.assertIn("model_mismatch", result["violations"])
 
-    def test_blocks_undeclared_tools(self):
-        stack = replace(
-            self.contracts["paac_email_demo"].agent_stack,
-            tool_ids=self.contracts["paac_email_demo"].agent_stack.tool_ids + ("mock_contacts_export",),
+    def test_blocks_undeclared_tool(self):
+        result = EnforcementEngine(self.contracts, now=NOW).evaluate(
+            req(metadata={"agent_version": "0.1", "model_id": "model.mock.safe", "tool_id": "shell.mock"})
         )
-        result = EnforcementEngine(self.contracts, now=NOW).evaluate(req(agent_stack=stack))
         self.assertEqual(result["decision"], "BLOCK")
-        self.assertIn("undeclared_tools", result["violations"])
+        self.assertIn("undeclared_tool", result["violations"])
 
-    def test_blocks_undeclared_delegation(self):
-        stack = replace(self.contracts["paac_email_demo"].agent_stack, delegated_by="planner-agent.mock")
-        result = EnforcementEngine(self.contracts, now=NOW).evaluate(req(agent_stack=stack))
+    def test_blocks_undeclared_sub_agent(self):
+        result = EnforcementEngine(self.contracts, now=NOW).evaluate(
+            req(metadata={
+                "agent_version": "0.1",
+                "model_id": "model.mock.safe",
+                "tool_id": "email.mock",
+                "delegated_agent_id": "other-agent.mock",
+            })
+        )
         self.assertEqual(result["decision"], "BLOCK")
         self.assertIn("undeclared_delegation", result["violations"])
 
-    def test_blocks_unknown_contract(self):
-        stack = self.contracts["paac_email_demo"].agent_stack
-        result = EnforcementEngine(self.contracts, now=NOW).evaluate(req(contract_id="missing_contract", agent_stack=stack))
-        self.assertEqual(result["decision"], "BLOCK")
-        self.assertIn("missing_authorization", result["violations"])
-
-    def test_blocks_replay_after_consumption(self):
+    def test_blocks_execution_count_exhaustion(self):
+        self.contracts["paac_email_demo"].constraints["max_execution_count"] = 1
         engine = EnforcementEngine(self.contracts, now=NOW)
-        first = engine.evaluate(req())
-        second = engine.evaluate(req())
-        third = engine.evaluate(req())
+        first = engine.evaluate(req(request_id="req_1"))
+        second = engine.evaluate(req(request_id="req_2"))
         self.assertEqual(first["decision"], "ALLOW_WITH_LOG")
         self.assertEqual(second["decision"], "BLOCK")
-        self.assertEqual(third["decision"], "BLOCK")
-        self.assertIn("replay", second["violations"])
-        self.assertIn("replay", third["violations"])
+        self.assertIn("execution_budget_exhausted", second["violations"])
 
-    def test_blocks_maximum_executions_exceeded(self):
-        self.contracts["paac_email_demo"].maximum_executions = 1
-        engine = EnforcementEngine(self.contracts, now=NOW)
-        first = engine.evaluate(req(request_id="req_exec_1"))
-        second = engine.evaluate(req(request_id="req_exec_2"))
-        self.assertEqual(first["decision"], "ALLOW_WITH_LOG")
-        self.assertEqual(second["decision"], "BLOCK")
-        self.assertIn("execution_limit_exceeded", second["violations"])
+    def test_evidence_mutation_breaks_integrity(self):
+        ledger = EvidenceLedger()
+        engine = EnforcementEngine(self.contracts, ledger=ledger, now=NOW)
+        engine.evaluate(req(request_id="req_1"))
+        engine.evaluate(req(request_id="req_2"))
+        self.assertTrue(ledger.verify_integrity())
+        ledger.events[0]["decision"] = "ALLOW"
+        self.assertFalse(ledger.verify_integrity())
+
+    def test_invalid_paac_input_rejected_by_schema_loader(self):
+        bad_contract = {
+            "paac_version": "0.1",
+            "contract_id": "bad",
+            "principal": {"type": "individual", "pseudonymous_id": "user_local_001"},
+            "agent_stack": {"agent_id": "email-agent.mock", "agent_version": "0.1", "model_id": "model.mock.safe"},
+            "purpose": "Missing actions.",
+            "permitted_actions": ["email.draft"],
+            "prohibited_actions": [],
+            "resources": {},
+            "constraints": {},
+            "validity": {"valid_from": "2026-07-21T00:00:00Z", "valid_until": "2026-07-28T00:00:00Z"},
+        }
+        with self.assertRaises(ValueError):
+            load_contracts_from_json([bad_contract])
+
+    def test_runtime_clock_advances_per_request_when_no_fixed_now(self):
+        engine = EnforcementEngine(self.contracts)
+        active = engine.evaluate(req(request_id="req_1", created_at=NOW))
+        expired = engine.evaluate(req(request_id="req_2", created_at=NOW + timedelta(days=30)))
+        self.assertEqual(active["decision"], "ALLOW_WITH_LOG")
+        self.assertEqual(expired["decision"], "BLOCK")
+        self.assertIn("expired_authorization", expired["violations"])
 
     def test_every_decision_generates_evidence_and_credit_event(self):
         result = EnforcementEngine(self.contracts, now=NOW).evaluate(req())
         self.assertTrue(result["evidence"]["event_id"].startswith("ev_"))
         self.assertTrue(result["agent_credit_event"]["event_id"].startswith("ace_"))
         self.assertEqual(result["agent_credit_event"]["source_evidence_id"], result["evidence"]["event_id"])
-        self.assertEqual(result["ledger_record"]["sequence"], 1)
-
-    def test_evidence_ledger_detects_mutation(self):
-        engine = EnforcementEngine(self.contracts, now=NOW)
-        engine.evaluate(req())
-        self.assertTrue(engine.ledger.verify_integrity())
-        engine.ledger.records[0]["event"]["decision"] = "ALLOW"
-        self.assertFalse(engine.ledger.verify_integrity())
 
 
 if __name__ == "__main__":

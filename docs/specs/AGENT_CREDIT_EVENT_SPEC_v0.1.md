@@ -1,18 +1,17 @@
 # Agent Credit Event Specification v0.1
 
-Agent credit events summarize enforcement outcomes for reputation and review. v0.1.1 adds lifecycle status to keep credit summaries aligned with authorization state.
+Agent credit events summarize enforcement outcomes for reputation and review.
 
 ## Required Properties
 
-- `event_version`: `patl-agent-credit-v0.1.1`.
-- `event_type`: `patl.agent_credit_event`.
+- `event_version`
+- `event_type`
 - `event_id`
 - `source_evidence_id`
 - `agent_id`
 - `contract_id`
 - `action_type`
 - `decision`
-- `lifecycle_status`
 - `violation_count`
 - `created_at`
 
@@ -22,13 +21,4 @@ Agent credit cannot override permission. Credit may be used later for routing, r
 
 ## Implemented
 
-- One Agent credit event is emitted per enforcement evidence event.
-- Credit events inherit the enforcement decision and lifecycle status from evidence.
-
-## Simulated
-
-- No external reputation network is connected.
-
-## Proposed
-
-- Aggregated credit views and independent audit feeds.
+The alpha implementation emits one Agent credit event per enforcement evidence event.
